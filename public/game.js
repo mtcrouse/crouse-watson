@@ -1,26 +1,24 @@
 'use strict';
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+const game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
 
 function preload() {
-
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
-    game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-
+  game.load.image('sky', 'assets/sky.png');
+  game.load.image('ground', 'assets/platform.png');
+  game.load.image('star', 'assets/star.png');
+  game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 }
 
-var player;
-var platforms;
-var cursors;
+let player;
+let platforms;
+let cursors;
 
-var stars;
-var score = 0;
-var scoreText;
+let stars;
+let starCount;
+let score = 0;
+let scoreText;
 
 function create() {
-
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -43,10 +41,18 @@ function create() {
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(400, 400, 'ground');
+    var ledgeX1 = 400;
+    console.log(ledgeX1);
+    var ledgeY1 = game.rnd.integerInRange(300,400);
+    console.log(ledgeY1);
+
+    var ledge = platforms.create(ledgeX1, ledgeY1, 'ground');
     ledge.body.immovable = true;
 
-    ledge = platforms.create(-150, 250, 'ground');
+    var ledgeX2 = -150;
+    var ledgeY2 = 250;
+
+    ledge = platforms.create(ledgeX2, ledgeY2, 'ground');
     ledge.body.immovable = true;
 
     // The player and its settings
@@ -57,31 +63,14 @@ function create() {
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
+    player.body.gravity.y = 200;
     player.body.collideWorldBounds = true;
 
     //  Our two animations, walking left and right.
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    //  Finally some stars to collect
-    stars = game.add.group();
-
-    //  We will enable physics for any star that is created in this group
-    stars.enableBody = true;
-
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var star = stars.create(i * 70, 0, 'star');
-
-        //  Let gravity do its thing
-        star.body.gravity.y = 300;
-
-        //  This just gives each star a slightly random bounce value
-        star.body.bounce.y = 0.7 + Math.random() * 0.2;
-    }
+    addStars();
 
     //  The score
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -131,6 +120,33 @@ function update() {
         player.body.velocity.y = -350;
     }
 
+    // Add more stars if starCount is 0
+    if (starCount === 0) {
+      addStars();
+    }
+}
+
+function addStars () {
+  //  Finally some stars to collect
+  stars = game.add.group();
+
+  //  We will enable physics for any star that is created in this group
+  stars.enableBody = true;
+
+  //  Here we'll create 12 of them evenly spaced apart
+  for (var i = 0; i < 12; i++)
+  {
+      //  Create a star inside of the 'stars' group
+      var star = stars.create(i * 70, 0, 'star');
+
+      //  Let gravity do its thing
+      star.body.gravity.y = 300;
+
+      //  This just gives each star a slightly random bounce value
+      star.body.bounce.y = 0.7 + Math.random() * 0.2;
+  }
+
+  starCount = 12;
 }
 
 function collectStar (player, star) {
@@ -141,5 +157,7 @@ function collectStar (player, star) {
     //  Add and update the score
     score += 10;
     scoreText.text = 'Score: ' + score;
+    starCount -= 1;
+    console.log(starCount);
 
 }
