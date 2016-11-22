@@ -58,12 +58,22 @@ const mainState = {
 	update: function() {
 			// End game if player hits the bottom
 			if (this.player.body.position.y >= game.world.height - this.player.body.height) {
-				this.gameOver();
+				this.die(this.player);
 			}
 
 			// End game if player hits the top
 			if (this.player.body.position.y <= 0) {
-				this.gameOver();
+				this.die(this.player);
+			}
+
+			// End game if player hits the bottom
+			if (this.player2.body.position.y >= game.world.height - this.player2.body.height) {
+				this.die(this.player2);
+			}
+
+			// End game if player hits the top
+			if (this.player2.body.position.y <= 0) {
+				this.die(this.player2);
 			}
 
 			// Collide the player with the platforms
@@ -183,9 +193,17 @@ const mainState = {
 				this.scoreText2.text = 'Player 2 Score: ' + this.score2;
 			}
 
-			if (this.score === 200) {
+			if (this.score === 200 || this.score2 === 200) {
 				game.state.start('win');
 			}
+	},
+
+	die: function(player) {
+		player.kill();
+
+		if (!this.player.alive && !this.player2.alive) {
+			this.gameOver();
+		};
 	},
 
 	gameOver: function() {
