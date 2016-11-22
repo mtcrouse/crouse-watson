@@ -16,29 +16,24 @@ const mainState = {
 			this.ground.body.immovable = true;
 			this.ground.body.velocity.y = 10;
 
-			game.time.events.loop(3000, this.addPlatform, this);
+			game.time.events.loop(4000, this.addPlatform, this);
 
-			// The player and its settings
-			this.player = game.add.sprite(32, game.world.height - 150, 'dude');
+			this.player = game.add.sprite(32, game.world.height - 150, 'player');
 
-			//  We need to enable physics on the player
 			game.physics.arcade.enable(this.player);
 
-			//  Player physics properties. Give the little guy a slight bounce.
 			this.player.body.bounce.y = 0.2;
 			this.player.body.gravity.y = 400;
 			this.player.body.collideWorldBounds = true;
 
-			//  Our two animations, walking left and right.
 			this.player.animations.add('left', [0, 1, 2, 3], 10, true);
 			this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
 			this.addStars();
 
-			//  The score
-			this.scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+			this.scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
+			this.levelText = game.add.text(650, 16, 'Level 1', { fontSize: '32px', fill: '#fff' });
 
-			//  Our controls.
 			this.cursors = game.input.keyboard.createCursorKeys();
 	},
 
@@ -102,26 +97,18 @@ const mainState = {
 
 		let ledge = this.platforms.create(ledgeX, ledgeY, 'ground');
 		ledge.body.immovable = true;
-		ledge.body.velocity.y = -80;
+		ledge.body.velocity.y = -40;
 	},
 
 	addStars: function() {
-		//  Finally some stars to collect
 		this.stars = game.add.group();
-
-		//  We will enable physics for any star that is created in this group
 		this.stars.enableBody = true;
 
-		//  Here we'll create 5 of them
-		for (var i = 0; i < 5; i++)
+		for (var i = 0; i < 10; i++)
 		{
-				//  Create a star inside of the 'stars' group
 				var star = this.stars.create(game.rnd.integerInRange(10,800), game.rnd.integerInRange(0,500), 'star');
 
-				//  Let gravity do its thing
 				star.body.gravity.y = game.rnd.integerInRange(40,200);
-
-				//  This just gives each star a slightly random bounce value
 				star.body.bounce.y = 0.7 + Math.random() * 0.2;
 
 				star.checkWorldBounds = true;
@@ -130,12 +117,14 @@ const mainState = {
 	},
 
 	collectStar: function(player, star) {
-			// Removes the star from the screen
 			star.kill();
 
-			//  Add and update the score
 			this.score += 10;
 			this.scoreText.text = 'Score: ' + this.score;
+
+			if (this.score === 200) {
+				game.state.start('win');
+			}
 	},
 
 	gameOver: function() {
