@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan('short'));
 
-app.use(express.static(path.join('public')));
+app.use(express.static(path.join('app/assets')));
 
 app.use((_req, res) => {
   res.sendStatus(404);
