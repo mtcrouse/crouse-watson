@@ -165,11 +165,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _angular2.default.module('game', [_angularUiRouter2.default]);
 });
 
-require.register("js/boot.js", function(exports, require, module) {
-"use strict";
+require.register("js/game.js", function(exports, require, module) {
+'use strict';
+
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'gameDiv');
+
+game.state.add('boot', bootState);
+game.state.add('load', loadState);
+game.state.add('menu', menuState);
+game.state.add('main', mainState);
+game.state.add('gameOver', gameOver);
+
+game.state.start('boot');
 });
 
-;require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
+require.alias("process/browser.js", "process");process = require('process');require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 
