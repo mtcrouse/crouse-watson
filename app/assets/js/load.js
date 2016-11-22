@@ -5,6 +5,7 @@ const loadState = {
     game.load.image('ground', 'images/platform.png');
     game.load.image('star', 'images/star.png');
     game.load.spritesheet('player', 'images/player.png', 32, 32);
+    game.load.spritesheet('player2', 'images/player2.png', 32, 32);
   },
 
   create: function() {

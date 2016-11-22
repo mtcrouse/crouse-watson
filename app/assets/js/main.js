@@ -1,10 +1,9 @@
 const mainState = {
 	create: function() {
 			this.score = 0;
+			this.score2 = 0;
 
 			this.game.add.sprite(0, 0, 'background');
-
-			this.game.stage.backgroundColor = '479cde';
 
 			this.platforms = game.add.group();
 			this.platforms.enableBody = true;
@@ -29,12 +28,31 @@ const mainState = {
 			this.player.animations.add('left', [0, 1, 2, 3], 10, true);
 			this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
+			this.player2 = game.add.sprite(80, game.world.height - 150, 'player2');
+
+			game.physics.arcade.enable(this.player2);
+
+			this.player2.body.bounce.y = 0.2;
+			this.player2.body.gravity.y = 400;
+			this.player2.body.collideWorldBounds = true;
+
+			this.player2.animations.add('left', [0, 1, 2, 3], 10, true);
+			this.player2.animations.add('right', [5, 6, 7, 8], 10, true);
+
 			this.addStars();
 
-			this.scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
-			this.levelText = game.add.text(650, 16, 'Level 1', { fontSize: '32px', fill: '#fff' });
+			this.scoreText = game.add.text(16, 16, 'Player 1 Score: 0', { fontSize: '20px', fill: '#fff' });
+			this.scoreText2 = game.add.text(16, 40, 'Player 2 Score: 0', { fontSize: '20px', fill: '#fff' });
+			this.levelText = game.add.text(650, 16, 'Level 1', { fontSize: '20px', fill: '#fff' });
 
 			this.cursors = game.input.keyboard.createCursorKeys();
+
+			this.wasd = {
+				up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+				down: game.input.keyboard.addKey(Phaser.Keyboard.S),
+				left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+				right: game.input.keyboard.addKey(Phaser.Keyboard.D),
+			};
 	},
 
 	update: function() {
@@ -48,12 +66,18 @@ const mainState = {
 				this.gameOver();
 			}
 
-			//  Collide the player with the platforms
+			// Collide the player with the platforms
 			game.physics.arcade.collide(this.player, this.platforms);
 			game.physics.arcade.collide(this.stars, this.platforms);
 
+			// Collide p2 with platforms
+			game.physics.arcade.collide(this.player2, this.platforms);
+
 			//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
 			game.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
+
+			//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+			game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
 
 			//  Reset the players velocity (movement)
 			this.player.body.velocity.x = 0;
@@ -84,6 +108,38 @@ const mainState = {
 			if (this.cursors.up.isDown && this.player.body.touching.down)
 			{
 					this.player.body.velocity.y = -350;
+			}
+
+
+			// Player 2 controls
+			this.player2.body.velocity.x = 0;
+
+			if (this.wasd.left.isDown)
+			{
+					//  Move to the left
+					this.player2.body.velocity.x = -150;
+
+					this.player2.animations.play('left');
+			}
+			else if (this.wasd.right.isDown)
+			{
+					//  Move to the right
+					this.player2.body.velocity.x = 150;
+
+					this.player2.animations.play('right');
+			}
+			else
+			{
+					//  Stand still
+					this.player2.animations.stop();
+
+					this.player2.frame = 4;
+			}
+
+			//  Allow the player2 to jump if they are touching the ground.
+			if (this.wasd.up.isDown && this.player2.body.touching.down)
+			{
+					this.player2.body.velocity.y = -350;
 			}
 
 			if (this.stars.countLiving() === 0) {
@@ -119,8 +175,13 @@ const mainState = {
 	collectStar: function(player, star) {
 			star.kill();
 
-			this.score += 10;
-			this.scoreText.text = 'Score: ' + this.score;
+			if (player === this.player) {
+				this.score += 10;
+				this.scoreText.text = 'Player 1 Score: ' + this.score;
+			} else if (player === this.player2) {
+				this.score2 += 10;
+				this.scoreText2.text = 'Player 2 Score: ' + this.score2;
+			}
 
 			if (this.score === 200) {
 				game.state.start('win');
