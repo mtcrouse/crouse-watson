@@ -15,6 +15,6 @@ const menuState = {
   },
 
   start: function() {
-    game.state.start('main');
+    game.state.start('main', true, false, { 'player1': 'Metta', 'player2': 'Liz' });
   }
 };

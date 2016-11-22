@@ -1,4 +1,9 @@
 const mainState = {
+	init: function(playerNames) {
+		this.player1name = playerNames.player1;
+		this.player2name = playerNames.player2;
+	},
+
 	create: function() {
 			this.score = 0;
 			this.score2 = 0;
@@ -17,7 +22,7 @@ const mainState = {
 
 			game.time.events.loop(4000, this.addPlatform, this);
 
-			this.player = game.add.sprite(32, game.world.height - 150, 'player');
+			this.player = game.add.sprite(700, game.world.height - 150, 'player');
 
 			game.physics.arcade.enable(this.player);
 
@@ -28,7 +33,7 @@ const mainState = {
 			this.player.animations.add('left', [0, 1, 2, 3], 10, true);
 			this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-			this.player2 = game.add.sprite(80, game.world.height - 150, 'player2');
+			this.player2 = game.add.sprite(32, game.world.height - 150, 'player2');
 
 			game.physics.arcade.enable(this.player2);
 
@@ -41,8 +46,8 @@ const mainState = {
 
 			this.addStars();
 
-			this.scoreText = game.add.text(16, 16, 'Player 1 Score: 0', { fontSize: '20px', fill: '#fff' });
-			this.scoreText2 = game.add.text(16, 40, 'Player 2 Score: 0', { fontSize: '20px', fill: '#fff' });
+			this.scoreText = game.add.text(16, 16, `${this.player1name}: 0`, { fontSize: '20px', fill: '#fff' });
+			this.scoreText2 = game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
 			this.levelText = game.add.text(650, 16, 'Level 1', { fontSize: '20px', fill: '#fff' });
 
 			this.cursors = game.input.keyboard.createCursorKeys();
@@ -88,6 +93,12 @@ const mainState = {
 
 			//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
 			game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
+
+			//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+			game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
+
+			//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+			game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
 
 			//  Reset the players velocity (movement)
 			this.player.body.velocity.x = 0;
@@ -172,7 +183,7 @@ const mainState = {
 
 		for (var i = 0; i < 10; i++)
 		{
-				var star = this.stars.create(game.rnd.integerInRange(10,800), game.rnd.integerInRange(0,500), 'star');
+				var star = this.stars.create(game.rnd.integerInRange(40,760), game.rnd.integerInRange(0,400), 'star');
 
 				star.body.gravity.y = game.rnd.integerInRange(40,200);
 				star.body.bounce.y = 0.7 + Math.random() * 0.2;
@@ -180,26 +191,64 @@ const mainState = {
 				star.checkWorldBounds = true;
     		star.outOfBoundsKill = true;
 		}
+
+		this.diamonds = game.add.group();
+		this.diamonds.removeAll(true);
+		this.diamonds.enableBody = true;
+
+		var diamond = this.diamonds.create(game.rnd.integerInRange(40,760), game.rnd.integerInRange(0,30), 'diamond');
+
+		diamond.body.velocity.y = 10;
+
+		diamond.checkWorldBounds = true;
+		diamond.outOfBoundsKill = true;
+
 	},
 
 	collectStar: function(player, star) {
 			star.kill();
 
 			if (player === this.player) {
-				this.score += 10;
-				this.scoreText.text = 'Player 1 Score: ' + this.score;
+				this.score += 5;
+				this.scoreText.text = `${this.player1name}: ` + this.score;
 			} else if (player === this.player2) {
-				this.score2 += 10;
-				this.scoreText2.text = 'Player 2 Score: ' + this.score2;
+				this.score2 += 5;
+				this.scoreText2.text = `${this.player2name}: ` + this.score2;
 			}
 
-			if (this.score === 200 || this.score2 === 200) {
-				game.state.start('win');
+			if (this.score >= 100) {
+				game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+			} else if (this.score2 >= 100) {
+				game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+			}
+	},
+
+	collectDiamond: function(player, diamond) {
+			diamond.kill();
+
+			if (player === this.player) {
+				this.score += 10;
+				this.scoreText.text = `${this.player1name}: ` + this.score;
+			} else if (player === this.player2) {
+				this.score2 += 10;
+				this.scoreText2.text = `${this.player2name}: ` + this.score2;
+			}
+
+			if (this.score >= 100) {
+				game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+			} else if (this.score2 >= 100) {
+				game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
 			}
 	},
 
 	die: function(player) {
 		player.kill();
+
+		if (player === this.player) {
+			this.scoreText.text = `${this.player1name}: DEAD`;
+		} else if (player === this.player2) {
+			this.scoreText2.text = `${this.player2name}: DEAD`;
+		}
 
 		if (!this.player.alive && !this.player2.alive) {
 			this.gameOver();
