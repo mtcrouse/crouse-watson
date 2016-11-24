@@ -139,7 +139,7 @@ const mainState = {
 			this.player2.body.velocity.y = -350;
 		}
 
-		if (this.stars.countLiving() === 0) {
+		if (this.stars.countLiving() < 3) {
 			this.addStars();
 		}
 	},
@@ -157,7 +157,7 @@ const mainState = {
 		this.stars = game.add.group();
 		this.stars.enableBody = true;
 
-		for (var i = 0; i < 10; i++) {
+		for (var i = 0; i < 5; i++) {
 				var star = this.stars.create(game.rnd.integerInRange(40,760), game.rnd.integerInRange(0,400), 'star');
 
 				star.body.gravity.y = game.rnd.integerInRange(40,200);
