@@ -18,7 +18,7 @@ const mainState = {
 		//  Scale the ground to fit the width of the game (the original sprite is 400x32 in size)
 		this.ground.scale.setTo(2, 2);
 		this.ground.body.immovable = true;
-		this.ground.body.velocity.y = 10;
+		this.ground.body.velocity.y = 2;
 
 		game.time.events.loop(4000, this.addPlatform, this);
 
@@ -152,11 +152,11 @@ const mainState = {
 
 	addPlatform: function() {
 		let ledgeX = game.rnd.integerInRange(0,600);
-		let ledgeY = game.rnd.integerInRange(600,650);
+		let ledgeY = game.rnd.integerInRange(0,-50);
 
 		let ledge = this.platforms.create(ledgeX, ledgeY, 'ground');
 		ledge.body.immovable = true;
-		ledge.body.velocity.y = -40;
+		ledge.body.velocity.y = 40;
 	},
 
 	addStars: function() {
