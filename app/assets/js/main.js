@@ -127,18 +127,18 @@ const mainState = {
 			this.player2.body.velocity.y = -350;
 		}
 
-		if (this.stars.countLiving() < 3) {
+		if (this.stars.countLiving() === 0) {
 			this.addStars();
 		}
 	},
 
 	addPlatform: function() {
 		let ledgeX = game.rnd.integerInRange(0,600);
-		let ledgeY = game.rnd.integerInRange(0,-50);
+		let ledgeY = game.rnd.integerInRange(600, 630);
 
 		let ledge = this.platforms.create(ledgeX, ledgeY, 'ground');
 		ledge.body.immovable = true;
-		ledge.body.velocity.y = 40;
+		ledge.body.velocity.y = -40;
 	},
 
 	addStars: function() {
