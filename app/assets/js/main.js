@@ -15,7 +15,6 @@ const mainState = {
 
 		this.ground = this.platforms.create(0, game.world.height - 64, 'ground');
 
-		//  Scale the ground to fit the width of the game (the original sprite is 400x32 in size)
 		this.ground.scale.setTo(2, 2);
 		this.ground.body.immovable = true;
 		this.ground.body.velocity.y = 2;
@@ -61,31 +60,26 @@ const mainState = {
 	},
 
 	update: function() {
-		// End game if player hits the bottom
+		// Kill player when touching the bottom
 		if (this.player.body.position.y >= game.world.height - this.player.body.height) {
 			this.die(this.player);
 		}
 
-		// End game if player hits the top
+		// Kill player when touching the top
 		if (this.player.body.position.y <= 0) {
 			this.die(this.player);
 		}
 
-		// End game if player hits the bottom
 		if (this.player2.body.position.y >= game.world.height - this.player2.body.height) {
 			this.die(this.player2);
 		}
 
-		// End game if player hits the top
 		if (this.player2.body.position.y <= 0) {
 			this.die(this.player2);
 		}
 
-		// Collide the player with the platforms
 		game.physics.arcade.collide(this.player, this.platforms);
 		game.physics.arcade.collide(this.stars, this.platforms);
-
-		// Collide p2 with platforms
 		game.physics.arcade.collide(this.player2, this.platforms);
 
 		//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
