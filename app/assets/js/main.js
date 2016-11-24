@@ -82,10 +82,7 @@ const mainState = {
 		game.physics.arcade.collide(this.stars, this.platforms);
 		game.physics.arcade.collide(this.player2, this.platforms);
 
-		//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
 		game.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
-
-		//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
 		game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
 
 		//  Reset the players velocity (movement)
@@ -104,7 +101,6 @@ const mainState = {
 		} else {
 			//  Stand still
 			this.player.animations.stop();
-
 			this.player.frame = 4;
 		}
 
@@ -113,28 +109,20 @@ const mainState = {
 			this.player.body.velocity.y = -350;
 		}
 
-
 		// Player 2 controls
 		this.player2.body.velocity.x = 0;
 
 		if (this.wasd.left.isDown) {
-			//  Move to the left
 			this.player2.body.velocity.x = -150;
-
 			this.player2.animations.play('left');
 		} else if (this.wasd.right.isDown) {
-			//  Move to the right
 			this.player2.body.velocity.x = 150;
-
 			this.player2.animations.play('right');
 		} else {
-			//  Stand still
 			this.player2.animations.stop();
-
 			this.player2.frame = 4;
 		}
-
-		//  Allow the player2 to jump if they are touching the ground.
+		
 		if (this.wasd.up.isDown && this.player2.body.touching.down) {
 			this.player2.body.velocity.y = -350;
 		}
