@@ -17,7 +17,7 @@ const mainState = {
 
 		this.ground.scale.setTo(2, 2);
 		this.ground.body.immovable = true;
-		this.ground.body.velocity.y = 2;
+		this.ground.body.velocity.y = 5;
 
 		game.time.events.loop(4000, this.addPlatform, this);
 
@@ -122,7 +122,7 @@ const mainState = {
 			this.player2.animations.stop();
 			this.player2.frame = 4;
 		}
-		
+
 		if (this.wasd.up.isDown && this.player2.body.touching.down) {
 			this.player2.body.velocity.y = -350;
 		}
