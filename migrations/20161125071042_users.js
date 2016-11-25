@@ -5,6 +5,8 @@ exports.up = function(knex) {
     table.increments();
     table.string('username').notNullable().unique();
     table.string('email').notNullable().unique();
+    table.string('name').notNullable();
+    table.integer('high_score').defaultTo(0);
     table.specificType('hashed_password', 'char(60)').notNullable();
     table.timestamps(true, true);
   });
