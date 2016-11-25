@@ -19,6 +19,10 @@ app.use(morgan('short'));
 
 app.use(express.static(path.join('public')));
 
+const users = require('./routes/users');
+
+app.use(users);
+
 app.use((_req, res) => {
   res.sendStatus(404);
 });

@@ -7,10 +7,6 @@ const jwt = require('jsonwebtoken');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
-// eslint-disable-next-line new-cap
-const ev = require('express-validation');
-const validations = require('../validations/users');
-
 const router = express.Router();
 
 const authorize = function(req, res, next) {
@@ -67,7 +63,7 @@ router.get('/users/:id', authorize, (req, res, next) => {
     });
 });
 
-router.post('/users', ev(validations.post), (req, res, next) => {
+router.post('/users', (req, res, next) => {
   const { username, email, password, name } = req.body;
 
   bcrypt.hash(password, 12)
