@@ -26,7 +26,7 @@ const mainState = {
 		game.physics.arcade.enable(this.player);
 
 		this.player.body.bounce.y = 0.2;
-		this.player.body.gravity.y = 400;
+		this.player.body.gravity.y = 375;
 		this.player.body.collideWorldBounds = true;
 
 		this.player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -37,7 +37,7 @@ const mainState = {
 		game.physics.arcade.enable(this.player2);
 
 		this.player2.body.bounce.y = 0.2;
-		this.player2.body.gravity.y = 400;
+		this.player2.body.gravity.y = 375;
 		this.player2.body.collideWorldBounds = true;
 
 		this.player2.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -110,7 +110,7 @@ const mainState = {
 
 		//  Allow the player to jump if they are touching the ground.
 		if (this.cursors.up.isDown && this.player.body.touching.down) {
-			this.player.body.velocity.y = -350;
+			this.player.body.velocity.y = -400;
 		}
 
 		// Player 2 controls
@@ -128,7 +128,7 @@ const mainState = {
 		}
 
 		if (this.wasd.up.isDown && this.player2.body.touching.down) {
-			this.player2.body.velocity.y = -350;
+			this.player2.body.velocity.y = -400;
 		}
 
 		if (this.stars.countLiving() === 0) {
@@ -137,10 +137,10 @@ const mainState = {
 	},
 
 	addPlatform: function() {
-		let ledgeX = game.rnd.integerInRange(0,600);
+		let ledgeX = game.rnd.integerInRange(35,465);
 		let ledgeY = game.rnd.integerInRange(600, 630);
 
-		let ledge = this.platforms.create(ledgeX, ledgeY, 'ground');
+		let ledge = this.platforms.create(ledgeX, ledgeY, 'platform');
 		ledge.body.immovable = true;
 		ledge.body.velocity.y = -40;
 	},
