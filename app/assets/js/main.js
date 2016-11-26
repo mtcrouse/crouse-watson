@@ -47,7 +47,7 @@ const mainState = {
 
 		this.addStars();
 		game.time.events.loop(10000, this.addDiamond, this);
-		game.time.events.loop(5000, this.addBomb, this);
+		game.time.events.loop(7000, this.addBomb, this);
 
 		this.scoreText = game.add.text(16, 16, `${this.player1name}: 0`, { fontSize: '20px', fill: '#fff' });
 		this.scoreText2 = game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
@@ -218,9 +218,19 @@ const mainState = {
 		this.bombs = game.add.group();
 		this.bombs.enableBody = true;
 
-		var bomb = this.bombs.create(game.rnd.integerInRange(40,760), game.rnd.integerInRange(0,400), 'bomb');
+		let randomNum = Math.random();
 
-		bomb.body.gravity.y = 100;
+		if (randomNum > 0.5) {
+			var bomb = this.bombs.create(0, 0, 'bomb');
+			bomb.body.gravity.y = game.rnd.integerInRange(30,100);
+			bomb.body.velocity.x = game.rnd.integerInRange(100,200);
+		} else {
+			var bomb = this.bombs.create(800, 0, 'bomb');
+			bomb.body.gravity.y = game.rnd.integerInRange(30,100);
+			bomb.body.velocity.x = game.rnd.integerInRange(-100,-200);
+		}
+
+
 
 		bomb.checkWorldBounds = true;
 		bomb.outOfBoundsKill = true;
