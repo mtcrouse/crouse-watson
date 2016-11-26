@@ -213,7 +213,8 @@ const mainState = {
 	die: function(player) {
 		player.kill();
 
-		this.scream.play();
+		// Leave this commented out until I figure out how to make it work all the time...
+		// this.scream.play();
 
 		if (player === this.player) {
 			this.scoreText.text = `${this.player1name}: DEAD`;
