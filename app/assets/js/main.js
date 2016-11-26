@@ -44,6 +44,7 @@ const mainState = {
 		this.player2.animations.add('right', [5, 6, 7, 8], 10, true);
 
 		this.addStars();
+		game.time.events.loop(10000, this.addDiamond, this);
 
 		this.scoreText = game.add.text(16, 16, `${this.player1name}: 0`, { fontSize: '20px', fill: '#fff' });
 		this.scoreText2 = game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
@@ -84,6 +85,9 @@ const mainState = {
 
 		game.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
 		game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
+
+		game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
+		game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
 
 		//  Reset the players velocity (movement)
 		this.player.body.velocity.x = 0;
@@ -172,6 +176,36 @@ const mainState = {
 			} else if (this.score2 >= 100) {
 				game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
 			}
+	},
+
+	addDiamond: function() {
+		this.diamonds = game.add.group();
+		this.diamonds.enableBody = true;
+
+		var diamond = this.diamonds.create(game.rnd.integerInRange(40,760), game.rnd.integerInRange(0,400), 'diamond');
+
+		diamond.body.gravity.y = 100;
+
+		diamond.checkWorldBounds = true;
+		diamond.outOfBoundsKill = true;
+	},
+
+	collectDiamond: function(player, diamond) {
+		diamond.kill();
+
+		if (player === this.player) {
+			this.score += 10;
+			this.scoreText.text = `${this.player1name}: ` + this.score;
+		} else if (player === this.player2) {
+			this.score2 += 10;
+			this.scoreText2.text = `${this.player2name}: ` + this.score2;
+		}
+
+		if (this.score >= 100) {
+			game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+		} else if (this.score2 >= 100) {
+			game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+		}
 	},
 
 	die: function(player) {
