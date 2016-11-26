@@ -6,6 +6,7 @@ const loadState = {
     game.load.image('platform', 'images/platform.png');
     game.load.image('star', 'images/star.png');
     game.load.image('diamond', 'images/diamond.png');
+    game.load.image('bomb', 'images/bomb.png');
     game.load.spritesheet('player', 'images/player.png', 32, 32);
     game.load.spritesheet('player2', 'images/player2.png', 32, 32);
     game.load.audio('scream', 'sounds/wilhelm.mp3');

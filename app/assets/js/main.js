@@ -47,6 +47,7 @@ const mainState = {
 
 		this.addStars();
 		game.time.events.loop(10000, this.addDiamond, this);
+		game.time.events.loop(5000, this.addBomb, this);
 
 		this.scoreText = game.add.text(16, 16, `${this.player1name}: 0`, { fontSize: '20px', fill: '#fff' });
 		this.scoreText2 = game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
@@ -90,6 +91,9 @@ const mainState = {
 
 		game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
 		game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
+
+		game.physics.arcade.overlap(this.player, this.bombs, this.hitBomb, null, this);
+		game.physics.arcade.overlap(this.player2, this.bombs, this.hitBomb, null, this);
 
 		//  Reset the players velocity (movement)
 		this.player.body.velocity.x = 0;
@@ -208,6 +212,23 @@ const mainState = {
 		} else if (this.score2 >= 100) {
 			game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
 		}
+	},
+
+	addBomb: function() {
+		this.bombs = game.add.group();
+		this.bombs.enableBody = true;
+
+		var bomb = this.bombs.create(game.rnd.integerInRange(40,760), game.rnd.integerInRange(0,400), 'bomb');
+
+		bomb.body.gravity.y = 100;
+
+		bomb.checkWorldBounds = true;
+		bomb.outOfBoundsKill = true;
+	},
+
+	hitBomb: function(player, bomb) {
+		bomb.kill();
+		this.die(player);
 	},
 
 	die: function(player) {
