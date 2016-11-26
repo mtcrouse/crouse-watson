@@ -8,6 +8,7 @@ const loadState = {
     game.load.image('diamond', 'images/diamond.png');
     game.load.spritesheet('player', 'images/player.png', 32, 32);
     game.load.spritesheet('player2', 'images/player2.png', 32, 32);
+    game.load.audio('scream', 'sounds/wilhelm.mp3');
   },
 
   create: function() {

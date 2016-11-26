@@ -10,6 +10,8 @@ const mainState = {
 
 		this.game.add.sprite(0, 0, 'background');
 
+		this.scream = game.add.audio('scream');
+
 		this.platforms = game.add.group();
 		this.platforms.enableBody = true;
 
@@ -210,6 +212,8 @@ const mainState = {
 
 	die: function(player) {
 		player.kill();
+
+		this.scream.play();
 
 		if (player === this.player) {
 			this.scoreText.text = `${this.player1name}: DEAD`;
