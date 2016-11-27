@@ -18,10 +18,10 @@ const menuState = {
   },
 
   start: function() {
-    game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'single' });
+    game.state.start('directions', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'single' });
   },
 
   startMultiplayer: function() {
-    game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multi' });
+    game.state.start('directions', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multi' });
   }
 };
