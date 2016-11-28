@@ -45,7 +45,7 @@ const mainState = {
 		// Set up player 1 controls
 		this.cursors = game.input.keyboard.createCursorKeys();
 
-		if (this.mode === 'multi') {
+		if (this.mode === 'multiplayer') {
 			this.player2 = game.add.sprite(32, game.world.height - 150, 'player2');
 
 			game.physics.arcade.enable(this.player2);
@@ -92,11 +92,11 @@ const mainState = {
 		game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
 		game.physics.arcade.overlap(this.player, this.bombs, this.hitBomb, null, this);
 
-		if (this.mode === 'single') {
-		if (this.wasd.left.isDown) {
+		if (this.mode === 'SinglePlayer') {
+		if (this.cursors.left.isDown) {
 			this.player.body.velocity.x = -150;
 			this.player.animations.play('left');
-		} else if (this.wasd.right.isDown) {
+		} else if (this.cursors.right.isDown) {
 			this.player.body.velocity.x = 150;
 			this.player.animations.play('right');
 		} else {
@@ -104,15 +104,15 @@ const mainState = {
 			this.player.frame = 4;
 		}
 
-		if (this.wasd.up.isDown && this.player2.body.touching.down) {
-			this.player2.body.velocity.y = -400;
+		if (this.cursors.up.isDown && this.player.body.touching.down) {
+			this.player.body.velocity.y = -400;
 		}
 }
 
 
 
 
-		if (this.mode === 'multi') {
+		if (this.mode === 'multiplayer') {
 			if (this.player2.body.position.y >= game.world.height - this.player2.body.height) {
 				this.die(this.player2);
 			}
@@ -125,7 +125,7 @@ const mainState = {
 			game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
 			game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
 			game.physics.arcade.overlap(this.player2, this.bombs, this.hitBomb, null, this);
-		}
+
 
 		game.physics.arcade.collide(this.stars, this.platforms);
 
@@ -160,7 +160,7 @@ const mainState = {
 
 
 
-		if (this.mode === 'multi') {
+
 			// Player 2 controls
 			this.player2.body.velocity.x = 0;
 
@@ -320,9 +320,9 @@ const mainState = {
 			}
 		}
 
-		if (this.mode === 'single' && !this.player.alive) {
+		if (this.mode === 'SinglePlayer' && !this.player.alive) {
 			this.gameOver();
-		} else if (this.mode === 'multi' && !this.player.alive && !this.player2.alive) {
+		} else if (this.mode === 'multiplayer' && !this.player.alive && !this.player2.alive) {
 			this.gameOver();
 		}
 	},
