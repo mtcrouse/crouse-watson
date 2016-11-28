@@ -1,14 +1,9 @@
-
 const mainState = {
-
 	init: function(playerNames) {
 		this.player1name = playerNames.player1;
 		this.player2name = playerNames.player2;
 		this.mode = playerNames.mode;
-
 	},
-
-
 
 	create: function() {
 		this.score = 0;
@@ -109,9 +104,6 @@ const mainState = {
 		}
 }
 
-
-
-
 		if (this.mode === 'multiplayer') {
 			if (this.player2.body.position.y >= game.world.height - this.player2.body.height) {
 				this.die(this.player2);
@@ -125,7 +117,6 @@ const mainState = {
 			game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
 			game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
 			game.physics.arcade.overlap(this.player2, this.bombs, this.hitBomb, null, this);
-
 
 		game.physics.arcade.collide(this.stars, this.platforms);
 
@@ -157,9 +148,6 @@ const mainState = {
 			this.player.body.velocity.y = -350;
 
 		}
-
-
-
 
 			// Player 2 controls
 			this.player2.body.velocity.x = 0;
@@ -440,8 +428,6 @@ airconsole.onConnect = function(device_id) {
 					} else {
 							 player_control_map[1].move.left = false;
 					}
-
-
 
 					if(data['joystick-left'].message.x > 0) {
 						player_control_map[1].move.right = true;
