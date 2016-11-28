@@ -3,9 +3,9 @@ var event_down = isMobile() ? 'touchstart' : 'mousedown';
 var event_up = isMobile() ? 'touchend' : 'mouseup';
 
 // Reference to our two buttons in the controller
-var left = $('#left');
-var right = $('#right');
-var jump  = $('#middle');
+var joy = $('#left');
+var right = $('#middle');
+var jump  = $('#right');
 
 // =======================================
 // Create the AirConsole instance
@@ -33,47 +33,52 @@ var airconsole = new AirConsole({
 // =======================================
 // Bind touch events
 // =======================================
-jump.on(event_down, function() {
-  // Send the AirConsole Screen that we PRESSED the left button
-  airconsole.message(AirConsole.SCREEN, {
-    action: 'jump',
-    pressed: true
-  });
-});
+// jump.on(event_down, function() {
+//   // Send the AirConsole Screen that we PRESSED the left button
+//   console.log(jump);
+//
+//   airconsole.message(AirConsole.SCREEN, {
+//     action: 'jump'
+//   });
+// });
+//
+// jump.on(event_up, function() {
+//   // Send the AirConsole Screen that we RELEASED the left button
+//   airconsole.message(AirConsole.SCREEN, {
+//     action: 'jump'
+//   });
+// });
+// joy.on(event_down, function() {
+//   console.log(joy);
+//   // console.log(joy);
+//   // console.log(event_down);
+//   // Send the AirConsole Screen that we PRESSED the left button
+//   airconsole.message(AirConsole.SCREEN, {
+//     action: 'joy',
+//     pressed: true,
+//     message:{}
+//   });
+// });
+//
+// joy.on(event_up, function() {
+//   // Send the AirConsole Screen that we RELEASED the left button
+//   airconsole.message(AirConsole.SCREEN, {
+//     action: 'joy',
+//     pressed: false,
+//     message:{}
+//   });
+// });
 
-jump.on(event_up, function() {
-  // Send the AirConsole Screen that we RELEASED the left button
-  airconsole.message(AirConsole.SCREEN, {
-    action: 'jump',
-    pressed: false
-  });
-});
-left.on(event_down, function() {
-  // Send the AirConsole Screen that we PRESSED the left button
-  airconsole.message(AirConsole.SCREEN, {
-    action: 'left',
-    pressed: true
-  });
-});
-
-left.on(event_up, function() {
-  // Send the AirConsole Screen that we RELEASED the left button
-  airconsole.message(AirConsole.SCREEN, {
-    action: 'left',
-    pressed: false
-  });
-});
-
-right.on(event_down, function() {
-  airconsole.message(AirConsole.SCREEN, {
-    action: 'right',
-    pressed: true
-  });
-});
-
-right.on(event_up, function() {
-  airconsole.message(AirConsole.SCREEN, {
-    action: 'right',
-    pressed: false
-  });
-});
+// right.on(event_down, function() {
+//   airconsole.message(AirConsole.SCREEN, {
+//     action: 'right',
+//     pressed: true
+//   });
+// });
+//
+// right.on(event_up, function() {
+//   airconsole.message(AirConsole.SCREEN, {
+//     action: 'right',
+//     pressed: false
+//   });
+// });

@@ -35,11 +35,11 @@
         </div>
       </div> -->
 
-      <!-- <div id="template-Joystick" class="joystick">
+      <div id="template-Joystick" class="joystick">
         <div class="joystick-relative">
           <div class="joystick-relative-stick"></div>
         </div>
-      </div> -->
+      </div>
 <!--
       <div id="template-SwipeDigital" class="button-300-300 swipe-area">
         <div class="button-text">SWIPE</div>
@@ -66,8 +66,14 @@
 <script type="text/javascript" src="airconsole-controls/swipe-pattern/swipe-pattern.js"></script>
 <script type="text/javascript" src="airconsole-controls/ctrl-generator/ctrl-generator.js"></script>
 <script src="js/controller.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
 CtrlGenerator.setAirConsole(airconsole);
 CtrlGenerator.generate({"left":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Left","key":"Left","on_up_message":true}],"middle":[{"label":"Jump","key":"Jump"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Right","key":"Right","on_up_message":true}]});
-</script></body></html>
+</script> -->
+<script type="text/javascript">
+var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
+CtrlGenerator.setAirConsole(airconsole);
+CtrlGenerator.generate({"left":{"type":{"label":"Joystick","class_name":"Joystick"}},"middle":[{"label":"Start","key":"Start"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Jump","key":"jump","on_up_message":true}]});
+</script>
+</body></html>

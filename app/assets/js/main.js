@@ -382,34 +382,77 @@ airconsole.onConnect = function(device_id) {
 			//  const airPlay2 = player_control_map[1];
 			 let player = player_control_map[airconsole.convertDeviceIdToPlayerNumber(device_id)];
 
-
-
+				 //  console.log(data);
+			//  console.log(data);
+			//  	 console.log('break');
+				  // console.log(data.joystick-left.message.x);
+					 //  console.log(data.message);
 			 // A Message from the player1
+
 			 if (player.player === player_control_map[0].player) {
-					 if (data.action === 'left') {
 
-							 player_control_map[0].move.left = data.pressed;
+						//  console.log(player_control_map[0].move.left);
+						// 		console.log(data.pressed);
+						if(data.jump){
+						if (data.jump.pressed) {
+								player_control_map[0].move.jump = data.jump.pressed;
 
+						}else{
+							player_control_map[0].move.jump = data.jump.pressed;
+
+						}
+					}else if(data['joystick-left']){
+						 	if(data['joystick-left'].message.x < 0){
+
+							 player_control_map[0].move.left = true;
+
+						 } else {
+						 			player_control_map[0].move.left = false;
+						 }
+
+
+
+						 if(data['joystick-left'].message.x > 0) {
+							 player_control_map[0].move.right = true;
+
+					 } else {
+								player_control_map[0].move.right = false;
 					 }
-					 if (data.action === 'right') {
-							 player_control_map[0].move.right = data.pressed;
-					 }
-					 if (data.action === 'jump') {
-							 player_control_map[0].move.jump = data.pressed;
-					 }
+
+		}else {
+
+					}
+
 			 } else if (player.player === player_control_map[1].player) {
-					 // Shooter pressed left button
-					 if (data.action === 'left') {
-							 player_control_map[1].move.left = data.pressed;
-					 }
-					 // Shooter pressed right button
-					 if (data.action === 'right') {
-							 player_control_map[1].move.right = data.pressed;
-					 }
-					 // Shooter presse
-					 if (data.action === 'jump') {
-							 player_control_map[1].move.jump = data.pressed;
-					 }
+				 if(data.jump){
+				 if (data.jump.pressed) {
+						 player_control_map[1].move.jump = data.jump.pressed;
+
+				 }else{
+					 player_control_map[1].move.jump = data.jump.pressed;
+
+				 }
+			 }else if(data['joystick-left']){
+					 if(data['joystick-left'].message.x < 0){
+
+						player_control_map[1].move.left = true;
+
+					} else {
+							 player_control_map[1].move.left = false;
+					}
+
+
+
+					if(data['joystick-left'].message.x > 0) {
+						player_control_map[1].move.right = true;
+
+				} else {
+						 player_control_map[1].move.right = false;
+				}
+
+ }else {
+
+			 }
 			 }
 	 };
 
