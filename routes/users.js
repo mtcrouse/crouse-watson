@@ -41,14 +41,6 @@ router.get('/users', authorize, (req, res, next) => {
     });
 });
 
-router.get('/users/id', authorize, (req, res, next) => {
-  let { userId } = req.token;
-
-  userId = JSON.stringify(userId);
-
-  res.send(userId);
-});
-
 router.get('/users/:id', authorize, (req, res, next) => {
   const { id } = req.params;
 
@@ -67,8 +59,40 @@ router.get('/users/:id', authorize, (req, res, next) => {
     });
 });
 
-router.patch('/users', (req, res, next) => {
-  const { highScore } = req.body;
+router.patch('/users', authorize, (req, res, next) => {
+  const { userId } = req.token;
+  const { newHighScore } = req.body;
+
+  knex('users')
+    .where('id', userId)
+    .first()
+    .then((user) => {
+      if (!user) {
+        return next(boom.create(404, 'Not Found'));
+      }
+
+      const { high_score } = user;
+      const updateUser = {};
+
+      if (newHighScore > high_score) {
+        updateUser.high_score = newHighScore;
+
+        return knex('users')
+          .update(decamelizeKeys(updateUser))
+          .where('id', userId);
+      } else {
+        return knex('users')
+          .update(decamelizeKeys(updateUser))
+          .where('id', userId);
+      }
+    })
+    .then((row) => {
+      const user = camelizeKeys(row[0]);
+      res.send(user);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 router.post('/users', ev(validations.post), (req, res, next) => {
