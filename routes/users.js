@@ -9,6 +9,10 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 
 const router = express.Router();
 
+// eslint-disable-next-line new-cap
+const ev = require('express-validation');
+const validations = require('../validations/users');
+
 const authorize = function(req, res, next) {
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
@@ -67,7 +71,7 @@ router.patch('/users', (req, res, next) => {
   const { highScore } = req.body;
 });
 
-router.post('/users', (req, res, next) => {
+router.post('/users', ev(validations.post), (req, res, next) => {
   const { username, email, password, name } = req.body;
 
   bcrypt.hash(password, 12)
