@@ -1,18 +1,18 @@
 const loadState = {
   preload: function() {
-    const loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill: '#ffffff'});
-    game.load.image('background', 'images/background.png');
-    game.load.image('ground', 'images/ground.png');
-    game.load.image('platform', 'images/platform.png');
-    game.load.image('star', 'images/star.png');
-    game.load.image('diamond', 'images/diamond.png');
-    game.load.image('bomb', 'images/bomb.png');
-    game.load.spritesheet('player', 'images/player.png', 32, 32);
-    game.load.spritesheet('player2', 'images/player2.png', 32, 32);
-    game.load.audio('scream', 'sounds/wilhelm.mp3');
+    const loadingLabel = this.game.add.text(80, 150, 'loading...', {font: '30px Courier', fill: '#ffffff'});
+    this.game.load.image('background', 'images/background.png');
+    this.game.load.image('ground', 'images/ground.png');
+    this.game.load.image('platform', 'images/platform.png');
+    this.game.load.image('star', 'images/star.png');
+    this.game.load.image('diamond', 'images/diamond.png');
+    this.game.load.image('bomb', 'images/bomb.png');
+    this.game.load.spritesheet('player', 'images/player.png', 32, 32);
+    this.game.load.spritesheet('player2', 'images/player2.png', 32, 32);
+    this.game.load.audio('scream', 'sounds/wilhelm.mp3');
   },
 
   create: function() {
-    game.state.start('menu');
+    this.game.state.start('menu');
   }
 };
