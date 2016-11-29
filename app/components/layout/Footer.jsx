@@ -4,8 +4,7 @@ const Footer = React.createClass({
   render() {
     return (
       <footer>
-        <hr />
-        By Metta Crouse and Karl Watson
+        <p>By Metta Crouse and Karl Watson</p>
       </footer>
     )
   }

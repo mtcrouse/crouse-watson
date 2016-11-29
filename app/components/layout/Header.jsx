@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const Header = React.createClass({
   render() {
     return (
-      <div>
-        
-      </div>
+      <header>
+        <div>
+          <p><Link to="/">Platform Game</Link></p>
+        </div>
+      </header>
     )
   }
 });
