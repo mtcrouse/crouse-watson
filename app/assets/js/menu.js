@@ -14,22 +14,26 @@ const menuState = {
     mKey.onDown.addOnce(this.startMultiplayer, this);
 
     // AirConsole
-    airconsole0.onMessage = function(device_id, data) {
-      if (data.start) {
-        if (data.start.pressed) {
-          player_control_map[0].move.start = data.start.pressed;
-          game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer', 'usingAirconsole': true });
+
+    try {
+      airconsole0.onMessage = function(device_id, data) {
+        if (data.start) {
+          if (data.start.pressed) {
+            player_control_map[0].move.start = data.start.pressed;
+            game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer', 'usingAirconsole': true });
+          }
         }
       }
-  };
-
+    } catch (error) {
+      console.log('no airconsole');
+    }
   },
 
   start: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false  });
+    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false });
   },
 
   startMultiplayer: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false  });
+    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false });
   }
 };
