@@ -4,6 +4,7 @@ let airconsole2;
 let airPlayer1;
 let airPlayer2;
 let player_control_map;
+let start;
 
 airconsole0 = new AirConsole();
 airconsole1 = new AirConsole();

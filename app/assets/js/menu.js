@@ -14,12 +14,13 @@ const menuState = {
     mKey.onDown.addOnce(this.startMultiplayer, this);
 
     // AirConsole
-
+    start = true;
     try {
       airconsole0.onMessage = function(device_id, data) {
-        if (data.start) {
+        if (data.start && start) {
           if (data.start.pressed) {
             player_control_map[0].move.start = data.start.pressed;
+            start = false;
             game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer', 'usingAirconsole': true });
           }
         }
