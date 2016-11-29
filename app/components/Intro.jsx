@@ -1,5 +1,4 @@
 import React from 'react';
-import SignIn from './SignIn';
 import { Link, Redirect } from 'react-router';
 
 const Intro = React.createClass({
@@ -57,8 +56,8 @@ const Intro = React.createClass({
         <ul id="link-options">
           <li><Link to='/play'>Play the game!</Link></li>
           <li><Link to='/airconsole'>Play the game with Air Console!</Link></li>
+          <li><Link to='/signin'>Create an account or sign in!</Link></li>
         </ul>
-        <SignIn />
       </main>
     )
   }

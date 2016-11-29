@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SignUp from './SignUp';
 
 const SignIn = React.createClass({
   getInitialState() {
@@ -12,9 +13,9 @@ const SignIn = React.createClass({
 
   handleSubmit(event) {
     event.preventDefault();
-    let data = { email: this.state.email, password: this.state.password };
-
-    console.log('umm');
+    let data = { email: this.state.email,
+      password: this.state.password
+    };
 
     axios.post('/token', data)
       .then(res => {
@@ -28,11 +29,15 @@ const SignIn = React.createClass({
   render() {
     return (
       <div>
+        <p>Create an account</p>
+        <SignUp />
+        <p>Sign in if you already have an account</p>
         <form onSubmit={this.handleSubmit}>
-          <input name="email" type="email" onChange={this.handleChange} />
-          <input name="password" type="password" onChange={this.handleChange} />
+          <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
+          <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
           <button type="submit">SUBMIT</button>
         </form>
+        <p>Thank you!</p>
       </div>
     )
   }
