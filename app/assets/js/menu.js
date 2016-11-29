@@ -18,7 +18,7 @@ const menuState = {
       if (data.start) {
         if (data.start.pressed) {
           player_control_map[0].move.start = data.start.pressed;
-          game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer' });
+          game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer', 'usingAirconsole': true });
         }
       }
   };
@@ -26,10 +26,10 @@ const menuState = {
   },
 
   start: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'singleplayer' });
+    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false  });
   },
 
   startMultiplayer: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'multiplayer' });
+    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false  });
   }
 };

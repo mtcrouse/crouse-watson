@@ -3,6 +3,8 @@ const mainState = {
 		this.player1name = playerNames.player1;
 		this.player2name = playerNames.player2;
 		this.mode = playerNames.mode;
+		this.usingAirconsole = playerNames.usingAirconsole;
+		console.log(`Airconsole is.... ${this.usingAirconsole}`);
 	},
 
 	create: function() {
@@ -11,7 +13,7 @@ const mainState = {
 
 		this.game.add.sprite(0, 0, 'background');
 
-		this.scream = this.game.add.audio('scream');
+		// this.scream = this.game.add.audio('scream');
 
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
@@ -37,7 +39,7 @@ const mainState = {
 
 		this.scoreText = this.game.add.text(16, 16, `${this.player1name}: 0`, { fontSize: '20px', fill: '#fff' });
 
-		// Set up player 1 controls
+		// Set up player 1 controls for keyboard
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		if (this.mode === 'multiplayer') {
@@ -54,13 +56,15 @@ const mainState = {
 
 			this.scoreText2 = this.game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
 
-			// Set up player 2 controls
-			this.wasd = {
-				up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
-				down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
-				left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
-				right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
-			};
+			// if (this.usingAirconsole === false) {
+				// Set up player 2 controls for keyboard
+				this.wasd = {
+					up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+					down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+					left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+					right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+				};
+			// }
 		}
 
 		this.addStars();
@@ -82,12 +86,15 @@ const mainState = {
 			this.die(this.player);
 		}
 
+		this.game.physics.arcade.collide(this.stars, this.platforms);
 		this.game.physics.arcade.collide(this.player, this.platforms);
 		this.game.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
 		this.game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
 		this.game.physics.arcade.overlap(this.player, this.bombs, this.hitBomb, null, this);
 
-		if (this.mode === 'singleplayer') {
+		//  Reset the players velocity (movement)
+		this.player.body.velocity.x = 0;
+
 		if (this.cursors.left.isDown) {
 			this.player.body.velocity.x = -150;
 			this.player.animations.play('left');
@@ -102,7 +109,6 @@ const mainState = {
 		if (this.cursors.up.isDown && this.player.body.touching.down) {
 			this.player.body.velocity.y = -400;
 		}
-}
 
 		if (this.mode === 'multiplayer') {
 			if (this.player2.body.position.y >= this.game.world.height - this.player2.body.height) {
@@ -118,76 +124,68 @@ const mainState = {
 			this.game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
 			this.game.physics.arcade.overlap(this.player2, this.bombs, this.hitBomb, null, this);
 
-		this.game.physics.arcade.collide(this.stars, this.platforms);
-
-		//  Reset the players velocity (movement)
-		this.player.body.velocity.x = 0;
-
-		if (player_control_map[0].move.left) {
-				//  Move to the left
-				this.player.body.velocity.x = -150;
-
-				this.player.animations.play('left');
-		} else if (player_control_map[0].move.right) {
-			//  Move to the right
-			this.player.body.velocity.x = 150;
-
-			this.player.animations.play('right');
-		} else {
-			//  Stand still
-			this.player.animations.stop();
-			this.player.frame = 4;
-		}
-
-		if (player_control_map[0].move.jump && this.player.body.touching.down) {
-			this.player.body.velocity.y = -350;
-
-		}
-		// Player 2 controls
+			// Player 2 controls for keyboard
 			this.player2.body.velocity.x = 0;
 
-		if (player_control_map[1].move.left) {
-			this.player2.body.velocity.x = -150;
-			this.player2.animations.play('left');
-		} else if (player_control_map[1].move.right) {
-			this.player2.body.velocity.x = 150;
-			this.player2.animations.play('right');
-		} else {
-			this.player2.animations.stop();
-			this.player2.frame = 4;
+			if (this.wasd.left.isDown) {
+				this.player2.body.velocity.x = -150;
+				this.player2.animations.play('left');
+			} else if (this.wasd.right.isDown) {
+				this.player2.body.velocity.x = 150;
+				this.player2.animations.play('right');
+			} else {
+				this.player2.animations.stop();
+				this.player2.frame = 4;
+			}
+
+			if (this.wasd.up.isDown && this.player2.body.touching.down) {
+				this.player2.body.velocity.y = -400;
+			}
+
+
+			// Start AirConsole stuff
+			if (this.usingAirconsole === true) {
+				if (player_control_map[0].move.left) {
+						//  Move to the left
+						this.player.body.velocity.x = -150;
+
+						this.player.animations.play('left');
+				} else if (player_control_map[0].move.right) {
+					//  Move to the right
+					this.player.body.velocity.x = 150;
+
+					this.player.animations.play('right');
+				} else {
+					//  Stand still
+					this.player.animations.stop();
+					this.player.frame = 4;
+				}
+
+				if (player_control_map[0].move.jump && this.player.body.touching.down) {
+					this.player.body.velocity.y = -350;
+				}
+
+				if (player_control_map[1].move.left) {
+					this.player2.body.velocity.x = -150;
+					this.player2.animations.play('left');
+				} else if (player_control_map[1].move.right) {
+					this.player2.body.velocity.x = 150;
+					this.player2.animations.play('right');
+				} else {
+					this.player2.animations.stop();
+					this.player2.frame = 4;
+				}
+
+				if (player_control_map[1].move.jump && this.player2.body.touching.down) {
+					this.player2.body.velocity.y = -350;
+				}
+			}
 		}
-
-		if (player_control_map[1].move.jump && this.player2.body.touching.down) {
-			this.player2.body.velocity.y = -350;
-
-		}
-	}
-
-	if (this.mode === 'multiplayer') {
-		if (this.wasd.left.isDown) {
-			this.player2.body.velocity.x = -150;
-			this.player2.animations.play('left');
-		} else if (this.wasd.right.isDown) {
-			this.player2.body.velocity.x = 150;
-			this.player2.animations.play('right');
-		} else {
-			this.player2.animations.stop();
-			this.player2.frame = 4;
-		}
-
-		if (this.wasd.up.isDown && this.player2.body.touching.down) {
-			this.player2.body.velocity.y = -400;
-		}
-	}
-
-	if (this.cursors.up.isDown && this.player.body.touching.down) {
-		this.player.body.velocity.y = -400;
 
 		if (this.stars.countLiving() === 0) {
 			this.addStars();
 		}
-	}
-},
+	},
 
 	addPlatform: function() {
 		let ledgeX = this.game.rnd.integerInRange(35,465);

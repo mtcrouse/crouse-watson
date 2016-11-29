@@ -1,6 +1,7 @@
 const directionsState = {
   init: function(mode) {
     this.mode = mode.mode;
+    this.usingAirconsole = mode.usingAirconsole;
   },
 
   create: function() {
@@ -33,6 +34,6 @@ const directionsState = {
   },
 
   start: function() {
-    this.game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': this.mode });
+    this.game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': this.mode, 'usingAirconsole': this.usingAirconsole  });
   },
 };
