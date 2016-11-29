@@ -63,6 +63,10 @@ router.get('/users/:id', authorize, (req, res, next) => {
     });
 });
 
+router.patch('/users', (req, res, next) => {
+  const { highScore } = req.body;
+});
+
 router.post('/users', (req, res, next) => {
   const { username, email, password, name } = req.body;
 

@@ -20,8 +20,10 @@ app.use(morgan('short'));
 app.use(express.static(path.join('public')));
 
 const users = require('./routes/users');
+const token = require('./routes/token');
 
 app.use(users);
+app.use(token);
 
 app.use((_req, res) => {
   res.sendStatus(404);
