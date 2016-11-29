@@ -43,7 +43,7 @@ const SignUp = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input placeholder="Name" name="name" type="text" onChange={this.handleChange} />
+          <input placeholder="First Name" name="name" type="text" onChange={this.handleChange} />
           <input placeholder="Username" name="username" type="text" onChange={this.handleChange} />
           <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
           <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
