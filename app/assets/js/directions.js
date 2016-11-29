@@ -7,7 +7,7 @@ const directionsState = {
   create: function() {
     this.game.stage.backgroundColor = '479cde';
 
-    if (this.mode === 'single') {
+    if (this.mode === 'singleplayer') {
       var mode = 'Single Player';
     } else {
       var mode = 'Multiplayer';
