@@ -15,14 +15,18 @@ const winState = {
     const cKey = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
     cKey.onDown.addOnce(this.start, this);
 
-    airconsole0.onMessage = function(device_id, data) {
-      if (data.start) {
-        if (data.start.pressed) {
-          player_control_map[0].move.start = data.start.pressed;
-          game.state.start('boot', true, true);
+    try {
+      airconsole0.onMessage = function(device_id, data) {
+        if (data.start) {
+          if (data.start.pressed) {
+            player_control_map[0].move.start = data.start.pressed;
+            game.state.start('boot', true, true);
+          }
         }
-      }
-  };
+      };
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   start: function() {
