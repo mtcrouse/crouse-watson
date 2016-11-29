@@ -6,13 +6,19 @@ const menuState = {
     const chooseMode = this.game.add.text(80, this.game.world.height-80,
                                     'Press S to play single player or M to play multiplayer',
                                     { font: '25px Arial', fill: '#ffffff'});
+
     const sKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
     sKey.onDown.addOnce(this.start, this);
+
+    const mKey = this.game.input.keyboard.addKey(Phaser.Keyboard.M);
+    mKey.onDown.addOnce(this.startMultiplayer, this);
+
+    // AirConsole
     airconsole0.onMessage = function(device_id, data) {
       if (data.start) {
         if (data.start.pressed) {
           player_control_map[0].move.start = data.start.pressed;
-          this.game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer' });
+          game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer' });
         }
       }
   };
@@ -20,10 +26,10 @@ const menuState = {
   },
 
   start: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'single' });
+    this.game.state.start('directions', true, false, { 'mode': 'singleplayer' });
   },
 
   startMultiplayer: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'multi' });
+    this.game.state.start('directions', true, false, { 'mode': 'multiplayer' });
   }
 };
