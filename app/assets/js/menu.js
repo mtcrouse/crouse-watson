@@ -8,9 +8,15 @@ const menuState = {
                                     { font: '25px Arial', fill: '#ffffff'});
     const sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
     sKey.onDown.addOnce(this.start, this);
+    airconsole0.onMessage = function(device_id, data) {
+      if (data.start) {
+        if (data.start.pressed) {
+          player_control_map[0].move.start = data.start.pressed;
+          game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer' });
+        }
+      }
+  };
 
-    const mKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
-    mKey.onDown.addOnce(this.startMultiplayer, this);
   },
 
   start: function() {

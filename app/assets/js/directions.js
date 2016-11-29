@@ -7,9 +7,9 @@ const directionsState = {
     this.game.stage.backgroundColor = '479cde';
 
     if (this.mode === 'single') {
-      var mode = 'SinglePlayer';
+      var mode = 'singleplayer';
     } else {
-      var mode = 'Multiplayer';
+      var mode = 'multiplayer';
     }
 
     const name = game.add.text(80, 100, `${mode} Directions:`,

@@ -87,7 +87,7 @@ const mainState = {
 		game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
 		game.physics.arcade.overlap(this.player, this.bombs, this.hitBomb, null, this);
 
-		if (this.mode === 'SinglePlayer') {
+		if (this.mode === 'singleplayer') {
 		if (this.cursors.left.isDown) {
 			this.player.body.velocity.x = -150;
 			this.player.animations.play('left');
@@ -139,33 +139,12 @@ const mainState = {
 			this.player.frame = 4;
 		}
 
-		//  Allow the player to jump if they are touching the ground.
-
-		// if (this.cursors.up.isDown && this.player.body.touching.down) {
-		// 	this.player.body.velocity.y = -400;
-
 		if (player_control_map[0].move.jump && this.player.body.touching.down) {
 			this.player.body.velocity.y = -350;
 
 		}
-
-			// Player 2 controls
+		// Player 2 controls
 			this.player2.body.velocity.x = 0;
-
-			// if (this.wasd.left.isDown) {
-			// 	this.player2.body.velocity.x = -150;
-			// 	this.player2.animations.play('left');
-			// } else if (this.wasd.right.isDown) {
-			// 	this.player2.body.velocity.x = 150;
-			// 	this.player2.animations.play('right');
-			// } else {
-			// 	this.player2.animations.stop();
-			// 	this.player2.frame = 4;
-			// }
-			//
-			// if (this.wasd.up.isDown && this.player2.body.touching.down) {
-			// 	this.player2.body.velocity.y = -400;
-			// }
 
 		if (player_control_map[1].move.left) {
 			this.player2.body.velocity.x = -150;
@@ -184,10 +163,29 @@ const mainState = {
 		}
 	}
 
+				if (this.wasd.left.isDown) {
+					this.player2.body.velocity.x = -150;
+					this.player2.animations.play('left');
+				} else if (this.wasd.right.isDown) {
+					this.player2.body.velocity.x = 150;
+					this.player2.animations.play('right');
+				} else {
+					this.player2.animations.stop();
+					this.player2.frame = 4;
+				}
+
+				if (this.wasd.up.isDown && this.player2.body.touching.down) {
+					this.player2.body.velocity.y = -400;
+				}
+
+	if (this.cursors.up.isDown && this.player.body.touching.down) {
+		this.player.body.velocity.y = -400;
+
 		if (this.stars.countLiving() === 0) {
 			this.addStars();
 		}
-	},
+	}
+},
 
 	addPlatform: function() {
 		let ledgeX = game.rnd.integerInRange(35,465);
@@ -299,7 +297,6 @@ const mainState = {
 
 		// Leave this commented out until I figure out how to make it work all the time...
 		// this.scream.play();
-
 		if (player === this.player) {
 			this.scoreText.text = `${this.player1name}: DEAD`;
 		} else if (this.mode === 'multi') {
@@ -308,7 +305,7 @@ const mainState = {
 			}
 		}
 
-		if (this.mode === 'SinglePlayer' && !this.player.alive) {
+		if (this.mode === 'singlePlayer' && !this.player.alive) {
 			this.gameOver();
 		} else if (this.mode === 'multiplayer' && !this.player.alive && !this.player2.alive) {
 			this.gameOver();
@@ -318,137 +315,4 @@ const mainState = {
 	gameOver: function() {
 		game.state.start('gameOver');
 	}
-}
-let airconsole = null;
-let airPlayer1;
-let airPlayer2;
-
-let player_control_map = [];
-let airPlayer1Move = {
-	left: false,
-	right: false,
-	jump: false
-};
-
-let airPlayer2Move = {
-left: false,
-right: false,
-jump: false
-};
-player_control_map.push({move: airPlayer1Move},{move: airPlayer2Move });
-
-airconsole = new AirConsole();
-airconsole.onConnect = function(device_id) {
-				checkTwoPlayers();
-			};
-/**
-	 * Checks if two players are connected!
-	 */
-	function checkTwoPlayers() {
-		let active_players = airconsole.getActivePlayerDeviceIds();
-		let connected_controllers = airconsole.getControllerDeviceIds();
-		// Only update if the game didn't have active players.
-		if (active_players.length == 0) {
-			if (connected_controllers.length >= 2) {
-				// Enough controller devices connected to start the game.
-				// Setting the first 2 controllers to active players.
-				airconsole.setActivePlayers(2);
-				airPlayer1 = airconsole.convertDeviceIdToPlayerNumber(connected_controllers[0]);
-				airPlayer2 = airconsole.convertDeviceIdToPlayerNumber(connected_controllers[1]);
-				// player_control_map.push({player: airPlayer1,move: airPlayer1Move}, {player: airPlayer2,move: airPlayer2Move });
-				player_control_map[0].player = airPlayer1;
-				player_control_map[1].player = airPlayer2;
-		}
-	}
-}
-
-// onMessage is called everytime a device sends a message with the .message() method
-	 airconsole.onMessage = function(device_id, data) {
-
-
-			//  const airPlay1 = player_control_map[0];
-			//  const airPlay2 = player_control_map[1];
-			 let player = player_control_map[airconsole.convertDeviceIdToPlayerNumber(device_id)];
-
-				 //  console.log(data);
-			//  console.log(data);
-			//  	 console.log('break');
-				  // console.log(data.joystick-left.message.x);
-					 //  console.log(data.message);
-			 // A Message from the player1
-
-			 if (player.player === player_control_map[0].player) {
-
-						//  console.log(player_control_map[0].move.left);
-						// 		console.log(data.pressed);
-						if(data.jump){
-						if (data.jump.pressed) {
-								player_control_map[0].move.jump = data.jump.pressed;
-
-						}else{
-							player_control_map[0].move.jump = data.jump.pressed;
-
-						}
-					}else if(data['joystick-left']){
-						 	if(data['joystick-left'].message.x < 0){
-
-							 player_control_map[0].move.left = true;
-
-						 } else {
-						 			player_control_map[0].move.left = false;
-						 }
-
-
-
-						 if(data['joystick-left'].message.x > 0) {
-							 player_control_map[0].move.right = true;
-
-					 } else {
-								player_control_map[0].move.right = false;
-					 }
-
-		}else {
-
-					}
-
-			 } else if (player.player === player_control_map[1].player) {
-				 if(data.jump){
-				 if (data.jump.pressed) {
-						 player_control_map[1].move.jump = data.jump.pressed;
-
-				 }else{
-					 player_control_map[1].move.jump = data.jump.pressed;
-
-				 }
-			 }else if(data['joystick-left']){
-					 if(data['joystick-left'].message.x < 0){
-
-						player_control_map[1].move.left = true;
-
-					} else {
-							 player_control_map[1].move.left = false;
-					}
-
-					if(data['joystick-left'].message.x > 0) {
-						player_control_map[1].move.right = true;
-
-				} else {
-						 player_control_map[1].move.right = false;
-				}
-
- }else {
-
-			 }
-			 }
-	 };
-
-
-airconsole.onDisconnect = function(device_id) {
-var player = airconsole.convertDeviceIdToPlayerNumber(device_id);
-if (player != undefined) {
-	// Player that was in game left the game.
-	// Setting active players to length 0.
-	airconsole.setActivePlayers(0);
-}
-checkTwoPlayers();
 };
