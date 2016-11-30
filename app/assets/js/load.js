@@ -14,6 +14,8 @@ const loadState = {
     this.game.load.spritesheet('player', 'images/player.png', 32, 32);
     this.game.load.spritesheet('player2', 'images/player2.png', 32, 32);
     this.game.load.audio('scream', 'sounds/wilhelm.mp3');
+    this.game.load.audio('starsound', 'sounds/starsound.mp3');
+    this.game.load.audio('bombsound', 'sounds/bombsound.mp3');
   },
 
   create: function() {

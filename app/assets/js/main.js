@@ -14,7 +14,9 @@ const mainState = {
 
 		this.game.add.sprite(0, 0, 'background');
 
-		// this.scream = this.game.add.audio('scream');
+		this.scream = this.game.add.audio('scream');
+		this.starSound = this.game.add.audio('starsound');
+		this.bombSound = this.game.add.audio('bombsound');
 
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
@@ -57,15 +59,12 @@ const mainState = {
 
 			this.scoreText2 = this.game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
 
-			// if (this.usingAirconsole === false) {
-				// Set up player 2 controls for keyboard
-				this.wasd = {
-					up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
-					down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
-					left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
-					right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
-				};
-			// }
+			this.wasd = {
+				up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+				down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+				left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+				right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+			};
 		}
 
 		this.addStars();
@@ -81,11 +80,13 @@ const mainState = {
 		// Kill player when touching the bottom
 		if (this.player.body.position.y >= this.game.world.height - this.player.body.height) {
 			this.die(this.player);
+			this.scream.play();
 		}
 
 		// Kill player when touching the top
 		if (this.player.body.position.y <= 0) {
 			this.die(this.player);
+			this.scream.play();
 		}
 
 		this.game.physics.arcade.collide(this.stars, this.platforms);
@@ -115,10 +116,12 @@ const mainState = {
 		if (this.mode === 'multiplayer') {
 			if (this.player2.body.position.y >= this.game.world.height - this.player2.body.height) {
 				this.die(this.player2);
+				this.scream.play();
 			}
 
 			if (this.player2.body.position.y <= 0) {
 				this.die(this.player2);
+				this.scream.play();
 			}
 
 			this.game.physics.arcade.collide(this.player2, this.platforms);
@@ -215,6 +218,7 @@ const mainState = {
 
 	collectStar: function(player, star) {
 			star.kill();
+			this.starSound.play();
 
 			if (player === this.player) {
 				this.score += 5;
@@ -291,14 +295,12 @@ const mainState = {
 
 	hitBomb: function(player, bomb) {
 		bomb.kill();
+		this.bombSound.play();
 		this.die(player);
 	},
 
 	die: function(player) {
 		player.kill();
-
-		// Leave this commented out until I figure out how to make it work all the time...
-		// this.scream.play();
 		if (player === this.player) {
 			this.scoreText.text = `${this.player1name}: DEAD`;
 		} else if (this.mode === 'multiplayer') {
