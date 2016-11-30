@@ -52,7 +52,8 @@ const Main = React.createClass({
         <Match pattern="/signin" exactly component={SignIn} />
         <Miss component={NotFound} />
 
-        <Match pattern="/user" component={User} />
+        {/* <Match pattern="/user" component=<User {...this.state}/> /> */}
+        <Match pattern="/user"  render={ () => <User { ...this.state } /> } />
 
 
       </main>
