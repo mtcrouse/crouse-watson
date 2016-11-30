@@ -1,8 +1,9 @@
 const winState = {
-  init: function(playerNames) {
-    this.winnerName = playerNames.winner;
-    this.player1name = playerNames.player1;
-    this.player2name = playerNames.player2;
+  init: function(data) {
+    this.winnerName = data.winner;
+    this.player1name = data.player1;
+    this.player2name = data.player2;
+    this.highScore = data.highScore;
   },
 
   create: function() {
@@ -30,6 +31,6 @@ const winState = {
   },
 
   start: function() {
-    this.game.state.start('boot', true, true);
+    this.game.state.start('boot', true, true, { 'highScore': this.highScore });
   }
 };

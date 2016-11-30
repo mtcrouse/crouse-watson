@@ -1,4 +1,8 @@
 const loadState = {
+  init: function(data) {
+    this.highScore = data.highScore;
+  },
+
   preload: function() {
     const loadingLabel = this.game.add.text(80, 150, 'loading...', {font: '30px Courier', fill: '#ffffff'});
     this.game.load.image('background', 'images/background.png');
@@ -13,6 +17,6 @@ const loadState = {
   },
 
   create: function() {
-    this.game.state.start('menu');
+    this.game.state.start('menu', true, false, { 'highScore': this.highScore });
   }
 };

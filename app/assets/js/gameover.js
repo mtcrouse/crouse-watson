@@ -1,4 +1,8 @@
 const gameOver = {
+  init: function(data) {
+    this.highScore = data.highScore;
+  },
+
   create: function() {
     const gameOverText = this.game.add.text(80, 80, 'GAME OVER',
                               { font: '50px Arial', fill: '#ffffff' });
@@ -23,6 +27,6 @@ const gameOver = {
   },
 
   start: function() {
-    this.game.state.start('boot', true, true);
+    this.game.state.start('boot', true, true, { 'highScore': this.highScore });
   }
 };

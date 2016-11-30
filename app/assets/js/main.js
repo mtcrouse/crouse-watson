@@ -1,9 +1,11 @@
 const mainState = {
-	init: function(playerNames) {
-		this.player1name = playerNames.player1;
-		this.player2name = playerNames.player2;
-		this.mode = playerNames.mode;
-		this.usingAirconsole = playerNames.usingAirconsole;
+	init: function(data) {
+		this.player1name = data.player1;
+		this.player2name = data.player2;
+		this.mode = data.mode;
+		this.usingAirconsole = data.usingAirconsole;
+		this.highScore = data.highScore;
+		console.log(`main ${this.highScore}`);
 		console.log(`Airconsole is.... ${this.usingAirconsole}`);
 	},
 
@@ -71,8 +73,9 @@ const mainState = {
 		this.game.time.events.loop(10000, this.addDiamond, this);
 		this.game.time.events.loop(7000, this.addBomb, this);
 
-		// Put this in when there are levels!
-		// this.levelText = game.add.text(650, 16, 'Level 1', { fontSize: '20px', fill: '#fff' });
+		if (this.mode === 'singleplayer') {
+			this.highScoreText = this.game.add.text(650, 16, `High Score: ${this.highScore}`, { fontSize: '20px', fill: '#fff' });
+		}
 	},
 
 	update: function() {
@@ -225,10 +228,10 @@ const mainState = {
 			}
 
 			if (this.score >= 100) {
-				this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+				this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
 			} else if (this.mode === 'multiplayer') {
 				if (this.score2 >= 100) {
-					this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+					this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
 				}
 			}
 	},
@@ -259,10 +262,10 @@ const mainState = {
 		}
 
 		if (this.score >= 100) {
-			this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+			this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
 		} else if (this.mode === 'multiplayer') {
 			if (this.score2 >= 100) {
-				this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}` });
+				this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
 			}
 		}
 	},
@@ -313,6 +316,6 @@ const mainState = {
 	},
 
 	gameOver: function() {
-		this.game.state.start('gameOver');
+		this.game.state.start('gameOver', true, false, { 'highScore': this.highScore });
 	}
 };

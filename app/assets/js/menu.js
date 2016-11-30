@@ -1,4 +1,8 @@
 const menuState = {
+  init: function(data) {
+    this.highScore = data.highScore;
+  },
+
   create: function() {
     this.game.stage.backgroundColor = '479cde';
     const name = this.game.add.text(80, 80, 'Platform Game',
@@ -21,7 +25,7 @@ const menuState = {
           if (data.start.pressed) {
             player_control_map[0].move.start = data.start.pressed;
             start = false;
-            game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer', 'usingAirconsole': true });
+            game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': 'multiplayer', 'usingAirconsole': true, 'highScore': this.highScore });
           }
         }
       }
@@ -31,10 +35,10 @@ const menuState = {
   },
 
   start: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false });
+    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false, 'highScore': this.highScore });
   },
 
   startMultiplayer: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false });
+    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false, 'highScore': this.highScore });
   }
 };

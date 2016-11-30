@@ -41,6 +41,24 @@ router.get('/users', authorize, (req, res, next) => {
     });
 });
 
+router.get('/users/highscore', authorize, (req, res, next) => {
+  const { userId } = req.token;
+
+  knex('users')
+    .where('id', userId)
+    .first()
+    .then((row) => {
+      if (!row) {
+        return next(boom.create(400, `No user at id ${id}`));
+      }
+
+      res.send({highScore: camelizeKeys(row).highScore});
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.get('/users/:id', authorize, (req, res, next) => {
   const { id } = req.params;
 

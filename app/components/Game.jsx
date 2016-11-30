@@ -1,9 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 
 let game;
 
 const Game = React.createClass({
-  componentDidMount() {
+  componentWillMount() {
     game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameDiv');
 
     game.state.add('boot', bootState);
@@ -14,7 +15,7 @@ const Game = React.createClass({
     game.state.add('gameOver', gameOver);
     game.state.add('win', winState);
 
-    game.state.start('boot');
+    game.state.start('boot', true, false, { 'highScore': this.props.highScore });
   },
 
   componentWillUnmount() {
