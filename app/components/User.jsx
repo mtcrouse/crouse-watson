@@ -12,8 +12,7 @@ const User = React.createClass({
 
       <div id='w'>
         <div id="content" className="clearfix">
-          <div id="userphoto"><img src="images/avatar.png" alt="default avatar"></img></div>
-          <h1>Minimal User Profile Layout</h1>
+          <h1>User Profile</h1>
         <nav id="profiletabs">
           <ul className="clearfix">
             <li><Link to='/user/score'>Score</Link></li>
