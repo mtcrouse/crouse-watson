@@ -5,8 +5,7 @@ const mainState = {
 		this.mode = data.mode;
 		this.usingAirconsole = data.usingAirconsole;
 		this.highScore = data.highScore;
-		console.log(`main ${this.highScore}`);
-		console.log(`Airconsole is.... ${this.usingAirconsole}`);
+		console.log(`Airconsole is... ${this.usingAirconsole}`);
 	},
 
 	create: function() {

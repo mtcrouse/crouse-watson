@@ -3,7 +3,6 @@ const directionsState = {
     this.mode = data.mode;
     this.usingAirconsole = data.usingAirconsole;
     this.highScore = data.highScore;
-    console.log(`directions ${this.highScore}`);
   },
 
   create: function() {

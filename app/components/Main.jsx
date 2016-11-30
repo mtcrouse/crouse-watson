@@ -10,13 +10,35 @@ import axios from 'axios';
 
 const Main = React.createClass({
   getInitialState() {
-    return axios.get('/users/highscore')
+    return {
+      currentUser: {},
+      users: []
+    }
+  },
+
+  componentDidMount() {
+    axios.get('/users/currentuser')
       .then(res => {
-        return this.state = {highScore: res.data.highScore};
+        this.setState({ currentUser: res.data });
       })
       .catch(err => {
-        console.error(err);
+        this.setState({ loadErr: err });
       });
+    axios.get('/users')
+      .then(res => {
+        this.setState({ users: res.data });
+      })
+      .catch(err => {
+        this.setState({ loadErr: err });
+      });
+  },
+
+  postNewHighScore() {
+    // State mutator + post new high score to db
+  },
+
+  updateLeaderboard() {
+    // State mutator to update leaderboard
   },
 
   render() {

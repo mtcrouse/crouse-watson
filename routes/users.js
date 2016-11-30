@@ -41,7 +41,7 @@ router.get('/users', authorize, (req, res, next) => {
     });
 });
 
-router.get('/users/highscore', authorize, (req, res, next) => {
+router.get('/users/currentuser', authorize, (req, res, next) => {
   const { userId } = req.token;
 
   knex('users')
@@ -51,8 +51,7 @@ router.get('/users/highscore', authorize, (req, res, next) => {
       if (!row) {
         return next(boom.create(400, `No user at id ${id}`));
       }
-
-      res.send({highScore: camelizeKeys(row).highScore});
+      res.send(camelizeKeys(row));
     })
     .catch((err) => {
       next(err);
