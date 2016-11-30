@@ -25,9 +25,9 @@ const User = React.createClass({
           </ul>
         </nav>
         </div>
-          <Match pattern="/user/score" exactly component={Score} />
-          <Match pattern="/user/friends" exactly component={Friends} />
-          <Match pattern="/user/leaderboard" exactly component={Leaderboard} />
+          <Match pattern="/user/score"  render={ () => <Score { ...this.props } /> } />
+          <Match pattern="/user/friends"  render={ () => <Friends { ...this.props } /> } />
+          <Match pattern="/user/leaderboard"  render={ () => <Leaderboard { ...this.props } /> } />
       </div>
 
     )

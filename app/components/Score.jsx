@@ -4,7 +4,7 @@ const Score = React.createClass({
   render() {
     return (
       <div>
-            score
+            {this.props.currentUser.highScore}
       </div>
     )
   }

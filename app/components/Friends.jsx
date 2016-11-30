@@ -4,7 +4,7 @@ const Friends = React.createClass({
   render() {
     return (
       <div>
-            Friends
+            
       </div>
     )
   }
