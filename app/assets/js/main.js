@@ -73,7 +73,7 @@ const mainState = {
 		this.game.time.events.loop(7000, this.addBomb, this);
 
 		if (this.mode === 'singleplayer') {
-			this.highScoreText = this.game.add.text(650, 16, `High Score: ${this.highScore}`, { fontSize: '20px', fill: '#fff' });
+			this.highScoreText = this.game.add.text(600, 16, `High Score: ${this.highScore}`, { fontSize: '20px', fill: '#fff' });
 		}
 	},
 
@@ -226,10 +226,10 @@ const mainState = {
 				}
 			}
 
-			if (this.score >= 100) {
-				this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
-			} else if (this.mode === 'multiplayer') {
-				if (this.score2 >= 100) {
+			if (this.mode === 'multiplayer') {
+				if (this.score >= 100) {
+					this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
+				} else if (this.score2 >= 100) {
 					this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
 				}
 			}
@@ -260,10 +260,10 @@ const mainState = {
 			}
 		}
 
-		if (this.score >= 100) {
-			this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
-		} else if (this.mode === 'multiplayer') {
-			if (this.score2 >= 100) {
+		if (this.mode === 'multiplayer') {
+			if (this.score >= 100) {
+				this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
+			} else if (this.score2 >= 100) {
 				this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
 			}
 		}

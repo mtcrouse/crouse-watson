@@ -4,7 +4,7 @@ import axios from 'axios';
 let game;
 
 const Game = React.createClass({
-  componentWillMount() {
+  componentDidMount() {
     game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameDiv');
 
     game.state.add('boot', bootState);
@@ -15,18 +15,19 @@ const Game = React.createClass({
     game.state.add('gameOver', gameOver);
     game.state.add('win', winState);
 
-    game.state.start('boot', true, false, { 'highScore': this.props.highScore });
+    game.state.start('boot', true, false, { 'highScore': this.props.currentUser.highScore });
+
+    window.addEventListener('beforeunload', (event) => {
+        ev.preventDefault();
+        return event.returnValue = 'Are you sure you want to close?';
+    });
   },
 
   componentWillUnmount() {
-    console.log(game.state.states.gameOver.highScore);
-    axios.patch('/users', {newHighScore: game.state.states.gameOver.highScore})
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    const newHighScore = game.state.states.gameOver.highScore;
+    if (newHighScore > this.props.currentUser.highScore) {
+      this.props.postNewHighScore(game.state.states.gameOver.highScore);
+    }
     if (game === undefined) {
       console.log('game not started');
     } else {

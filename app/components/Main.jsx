@@ -33,8 +33,15 @@ const Main = React.createClass({
       });
   },
 
-  postNewHighScore() {
-    // State mutator + post new high score to db
+  postNewHighScore(highScore) {
+    axios.patch('/users', { newHighScore: highScore })
+      .then(res => {
+        const updatedCurrentUser = Object.assign({}, this.state.currentUser, { highScore: highScore });
+        this.setState({ currentUser: updatedCurrentUser });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
 
   updateLeaderboard() {
@@ -45,17 +52,17 @@ const Main = React.createClass({
     return (
       <main>
         <Match pattern="/" exactly component={Intro} />
-        <Match pattern="/play" exactly render={ () => <Game { ...this.state } /> } />
-
+        <Match pattern="/play" exactly render={
+          () => <Game
+                  { ...this.state }
+                  postNewHighScore={this.postNewHighScore}
+                /> } />
         <Match pattern="/airconsole" exactly component={AirConsole} />
-
         <Match pattern="/signin" exactly component={SignIn} />
         <Miss component={NotFound} />
 
         {/* <Match pattern="/user" component=<User {...this.state}/> /> */}
         <Match pattern="/user"  render={ () => <User { ...this.state } /> } />
-
-
       </main>
     )
   }
