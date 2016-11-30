@@ -19,6 +19,14 @@ const Game = React.createClass({
   },
 
   componentWillUnmount() {
+    console.log(game.state.states.gameOver.highScore);
+    axios.patch('/users', {newHighScore: game.state.states.gameOver.highScore})
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
     if (game === undefined) {
       console.log('game not started');
     } else {

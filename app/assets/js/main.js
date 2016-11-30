@@ -316,6 +316,9 @@ const mainState = {
 	},
 
 	gameOver: function() {
+		if (this.score > this.highScore) {
+			this.highScore = this.score;
+		}
 		this.game.state.start('gameOver', true, false, { 'highScore': this.highScore });
 	}
 };
