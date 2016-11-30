@@ -27,6 +27,6 @@ const gameOver = {
   },
 
   start: function() {
-    this.game.state.start('boot', true, true, { 'highScore': this.highScore });
+    this.game.state.start('menu', true, false, { 'highScore': this.highScore });
   }
 };

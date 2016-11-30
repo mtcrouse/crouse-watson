@@ -16,9 +16,15 @@ const loadState = {
     this.game.load.audio('scream', 'sounds/wilhelm.mp3');
     this.game.load.audio('starsound', 'sounds/starsound.mp3');
     this.game.load.audio('bombsound', 'sounds/bombsound.mp3');
+    this.game.load.audio('diamondsound', 'sounds/diamondsound.mp3');
+    this.game.load.audio('chopin', 'sounds/chopin.mp3');
   },
 
   create: function() {
+    this.chopin = this.game.add.audio('chopin');
+    this.chopin.loop = true;
+    this.chopin.play();
+
     this.game.state.start('menu', true, false, { 'highScore': this.highScore });
   }
 };

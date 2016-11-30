@@ -17,6 +17,7 @@ const mainState = {
 		this.scream = this.game.add.audio('scream');
 		this.starSound = this.game.add.audio('starsound');
 		this.bombSound = this.game.add.audio('bombsound');
+		this.diamondSound = this.game.add.audio('diamondsound');
 
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
@@ -253,6 +254,7 @@ const mainState = {
 
 	collectDiamond: function(player, diamond) {
 		diamond.kill();
+		this.diamondSound.play();
 
 		if (player === this.player) {
 			this.score += 10;
