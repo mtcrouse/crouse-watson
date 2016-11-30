@@ -21,9 +21,11 @@ app.use(express.static(path.join('public')));
 
 const users = require('./routes/users');
 const token = require('./routes/token');
+const scores = require('./routes/scores');
 
 app.use(users);
 app.use(token);
+app.use(scores);
 
 app.use((_req, res) => {
   res.sendStatus(404);

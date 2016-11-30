@@ -11,6 +11,10 @@ const Game = React.createClass({
     }
   },
 
+  postScores(currentScores) {
+    this.props.postScores(currentScores);
+  },
+
   componentDidMount() {
     game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameDiv');
 
@@ -26,11 +30,13 @@ const Game = React.createClass({
 
     window.addEventListener('beforeunload', (event) => {
       this.updateHighScore(game.state.states.gameOver.highScore);
+      this.postScores(game.state.states.gameOver.currentScores);
     });
   },
 
   componentWillUnmount() {
     this.updateHighScore(game.state.states.gameOver.highScore);
+    this.postScores(game.state.states.gameOver.currentScores);
 
     if (game === undefined) {
       console.log('game not started');
@@ -41,6 +47,7 @@ const Game = React.createClass({
 
     window.removeEventListener('beforeunload', (event) => {
       this.updateHighScore(game.state.states.gameOver.highScore);
+      this.postScores(game.state.states.gameOver.currentScores);
     });
   },
 

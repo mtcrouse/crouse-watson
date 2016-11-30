@@ -1,6 +1,7 @@
 const menuState = {
   init: function(data) {
     this.highScore = data.highScore;
+    this.currentScores = data.currentScores;
   },
 
   create: function() {
@@ -35,10 +36,10 @@ const menuState = {
   },
 
   start: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false, 'highScore': this.highScore });
+    this.game.state.start('directions', true, false, { 'mode': 'singleplayer', 'usingAirconsole': false, 'highScore': this.highScore, 'currentScores': this.currentScores });
   },
 
   startMultiplayer: function() {
-    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false, 'highScore': this.highScore });
+    this.game.state.start('directions', true, false, { 'mode': 'multiplayer', 'usingAirconsole': false, 'highScore': this.highScore, 'currentScores': this.currentScores });
   }
 };

@@ -1,6 +1,7 @@
 const loadState = {
   init: function(data) {
     this.highScore = data.highScore;
+    this.currentScores = data.currentScores;
   },
 
   preload: function() {
@@ -25,6 +26,6 @@ const loadState = {
     this.chopin.loop = true;
     this.chopin.play();
 
-    this.game.state.start('menu', true, false, { 'highScore': this.highScore });
+    this.game.state.start('menu', true, false, { 'highScore': this.highScore, 'currentScores': this.currentScores });
   }
 };

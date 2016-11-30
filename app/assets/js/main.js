@@ -5,6 +5,8 @@ const mainState = {
 		this.mode = data.mode;
 		this.usingAirconsole = data.usingAirconsole;
 		this.highScore = data.highScore;
+		this.currentScores = data.currentScores;
+		console.log(`Current scores = ${this.currentScores}`);
 		console.log(`Airconsole is... ${this.usingAirconsole}`);
 	},
 
@@ -322,6 +324,9 @@ const mainState = {
 		if (this.score > this.highScore) {
 			this.highScore = this.score;
 		}
-		this.game.state.start('gameOver', true, false, { 'highScore': this.highScore });
+		if (this.mode === 'singleplayer') {
+			this.currentScores.push(this.score);
+		}
+		this.game.state.start('gameOver', true, false, { 'highScore': this.highScore, 'currentScores': this.currentScores });
 	}
 };

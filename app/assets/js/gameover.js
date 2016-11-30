@@ -1,6 +1,7 @@
 const gameOver = {
   init: function(data) {
     this.highScore = data.highScore;
+    this.currentScores = data.currentScores;
   },
 
   create: function() {
@@ -27,6 +28,6 @@ const gameOver = {
   },
 
   start: function() {
-    this.game.state.start('menu', true, false, { 'highScore': this.highScore });
+    this.game.state.start('menu', true, false, { 'highScore': this.highScore, 'currentScores': this.currentScores });
   }
 };

@@ -3,6 +3,7 @@ const directionsState = {
     this.mode = data.mode;
     this.usingAirconsole = data.usingAirconsole;
     this.highScore = data.highScore;
+    this.currentScores = data.currentScores;
   },
 
   create: function() {
@@ -35,6 +36,6 @@ const directionsState = {
   },
 
   start: function() {
-    this.game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': this.mode, 'usingAirconsole': this.usingAirconsole, 'highScore': this.highScore });
+    this.game.state.start('main', true, false, { 'player1': 'Player 1', 'player2': 'Player 2', 'mode': this.mode, 'usingAirconsole': this.usingAirconsole, 'highScore': this.highScore, 'currentScores': this.currentScores });
   },
 };

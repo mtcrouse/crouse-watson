@@ -24,6 +24,13 @@ const Main = React.createClass({
       .catch(err => {
         this.setState({ loadErr: err });
       });
+    // axios.get('/scores/users')
+    //   .then(res => {
+    //     this.setState({ currentUserScores: res.data });
+    //   })
+    //   .catch(err => {
+    //     this.setState({ loadErr: err });
+    //   });
     axios.get('/users')
       .then(res => {
         this.setState({ users: res.data });
@@ -44,6 +51,16 @@ const Main = React.createClass({
       });
   },
 
+  postScores(currentScores) {
+    axios.post('/scores', { currentScores })
+      .then(res => {
+        console.log('post from main went through');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  },
+
   updateLeaderboard() {
     // State mutator to update leaderboard
   },
@@ -56,6 +73,7 @@ const Main = React.createClass({
           () => <Game
                   { ...this.state }
                   postNewHighScore={this.postNewHighScore}
+                  postScores={this.postScores}
                 /> } />
         <Match pattern="/airconsole" exactly component={AirConsole} />
         <Match pattern="/signin" exactly component={SignIn} />

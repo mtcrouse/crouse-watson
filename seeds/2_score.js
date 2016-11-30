@@ -8,13 +8,13 @@ exports.seed = function(knex) {
       return knex('scores').insert([{
         id: 1,
         user_id:1,
-        scores: 50,
+        score: 50,
         created_at: new Date('2016-11-25 16:17:12 UTC'),
         updated_at: new Date('2016-11-25 16:17:12 UTC')
       }, {
         id: 2,
         user_id:1,
-        scores:89,
+        score:89,
         created_at: new Date('2016-11-25 16:17:15 UTC'),
         updated_at: new Date('2016-11-25 16:17:15 UTC')
       }]);

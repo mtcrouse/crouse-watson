@@ -6,6 +6,6 @@ const bootState = {
   create: function() {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.game.state.start('load', true, false, { 'highScore': this.highScore });
+    this.game.state.start('load', true, false, { 'highScore': this.highScore, currentScores: [] });
   }
 };

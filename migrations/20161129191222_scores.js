@@ -9,7 +9,7 @@ exports.up = function(knex) {
         .inTable('users')
         .onDelete('CASCADE')
         .index();
-    table.integer('scores').defaultTo(0);
+    table.integer('score').defaultTo(0);
     table.timestamps(true, true);
   });
 };
