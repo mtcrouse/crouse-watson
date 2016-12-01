@@ -5,6 +5,7 @@ const gameOver = {
   },
 
   create: function() {
+    this.game.add.sprite(0, 0, 'background');
     const gameOverText = this.game.add.text(80, 80, 'GAME OVER',
                               { font: '50px Arial', fill: '#ffffff' });
     const startLabel = this.game.add.text(80, this.game.world.height-80,

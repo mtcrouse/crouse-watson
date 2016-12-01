@@ -5,7 +5,7 @@ const menuState = {
   },
 
   create: function() {
-    this.game.stage.backgroundColor = '479cde';
+    this.game.add.sprite(0, 0, 'background');
     const name = this.game.add.text(80, 80, 'Platform Game',
                               { font: '50px Arial', fill: '#ffffff' });
     const chooseMode = this.game.add.text(80, this.game.world.height-80,

@@ -12,6 +12,7 @@ const Main = React.createClass({
   getInitialState() {
     return {
       currentUser: {},
+      currentUserScores: [],
       users: [],
       isLoggedIn: false
     }
@@ -92,13 +93,21 @@ const Main = React.createClass({
 
   signIn() {
     this.setState({ isLoggedIn: true });
+    this.getCurrentUser();
+    this.getAllUsers();
+    this.getUserScores();
   },
 
   signOut() {
     axios.delete('/token')
       .then(res => {
         console.log('deleted cookie');
-        this.setState({ isLoggedIn: false });
+        this.setState({
+          currentUser: {},
+          currentUserScores: [],
+          users: [],
+          isLoggedIn: false
+        });
       })
       .catch(err => {
         console.error(err);
