@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import SignUp from './SignUp';
+import Header from './layout/Header';
+import { Link, Redirect } from 'react-router';
 
 const SignIn = React.createClass({
   getInitialState() {
@@ -19,7 +21,8 @@ const SignIn = React.createClass({
 
     axios.post('/token', data)
       .then(res => {
-        console.log('successfully posted token');
+        this.props.signIn();
+        return <Redirect to={'/'} />;
       })
       .catch(err => {
         console.error(err);
@@ -29,15 +32,17 @@ const SignIn = React.createClass({
   render() {
     return (
       <div>
-        <p>Create an account</p>
-        <SignUp />
-        <p>Sign in if you already have an account</p>
-        <form onSubmit={this.handleSubmit}>
-          <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
-          <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
-          <button type="submit">SUBMIT</button>
-        </form>
-        <p>Thank you!</p>
+        <Header />
+          <div id="signin-signup">
+            <p>Create an account</p>
+            <SignUp />
+            <p>Sign in if you already have an account</p>
+            <form onSubmit={this.handleSubmit}>
+              <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
+              <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
+              <button type="submit">SUBMIT</button>
+            </form>
+          </div>
       </div>
     )
   }

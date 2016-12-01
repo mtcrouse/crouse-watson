@@ -6,7 +6,7 @@ const Header = React.createClass({
     return (
       <header>
         <div>
-          <p><Link to="/">Platform Game</Link></p>
+          <p><Link to="/">Home</Link></p>
         </div>
       </header>
     )

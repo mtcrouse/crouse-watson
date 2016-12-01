@@ -21,7 +21,6 @@ const Main = React.createClass({
     axios.get('/users/currentuser')
       .then(res => {
         this.setState({ currentUser: res.data });
-
       })
       .catch(err => {
         this.setState({ loadErr: err });
@@ -53,9 +52,11 @@ const Main = React.createClass({
       .then(res => {
         let isLoggedIn = res.data;
         if (isLoggedIn) {
-          this.state.isLoggedIn = true;
+          this.setState({ isLoggedIn: true });
           this.getCurrentUser();
           this.getAllUsers();
+        } else {
+          this.setState({ isLoggedIn: false });
         }
       })
       .catch(err => {
@@ -88,11 +89,29 @@ const Main = React.createClass({
     // State mutator to update leaderboard
   },
 
+  signIn() {
+    this.setState({ isLoggedIn: true });
+  },
+
+  signOut() {
+    axios.delete('/token')
+      .then(res => {
+        console.log('deleted cookie');
+        this.setState({ isLoggedIn: false });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  },
+
   render() {
     return (
       <main>
         <Match pattern="/" exactly render={
-          () => <Intro { ...this.state }/> } />
+          () => <Intro
+                  { ...this.state }
+                  signOut={this.signOut}
+                /> } />
         <Match pattern="/play" exactly render={
           () => <Game
                   { ...this.state }
@@ -100,10 +119,11 @@ const Main = React.createClass({
                   postScores={this.postScores}
                 /> } />
         <Match pattern="/airconsole" exactly component={AirConsole} />
-        <Match pattern="/signin" exactly component={SignIn} />
+        <Match pattern="/signin" exactly render={
+          () => <SignIn
+                  signIn={this.signIn}
+                /> } />
         <Miss component={NotFound} />
-
-        {/* <Match pattern="/user" component=<User {...this.state}/> /> */}
         <Match pattern="/user"  render={ () => <User { ...this.state } /> } />
       </main>
     )

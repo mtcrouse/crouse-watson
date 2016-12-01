@@ -30,14 +30,18 @@ const Game = React.createClass({
     game.state.start('boot', true, false, { 'highScore': this.props.currentUser.highScore });
 
     window.addEventListener('beforeunload', (event) => {
-      this.updateHighScore(game.state.states.gameOver.highScore);
-      this.postScores(game.state.states.gameOver.currentScores);
+      if (this.props.isLoggedIn) {
+        this.updateHighScore(game.state.states.gameOver.highScore);
+        this.postScores(game.state.states.gameOver.currentScores);
+      }
     });
   },
 
   componentWillUnmount() {
-    this.updateHighScore(game.state.states.gameOver.highScore);
-    this.postScores(game.state.states.gameOver.currentScores);
+    if (this.props.isLoggedIn) {
+      this.updateHighScore(game.state.states.gameOver.highScore);
+      this.postScores(game.state.states.gameOver.currentScores);
+    }
 
     if (game === undefined) {
       console.log('game not started');
@@ -47,8 +51,10 @@ const Game = React.createClass({
     }
 
     window.removeEventListener('beforeunload', (event) => {
-      this.updateHighScore(game.state.states.gameOver.highScore);
-      this.postScores(game.state.states.gameOver.currentScores);
+      if (this.props.isLoggedIn) {
+        this.updateHighScore(game.state.states.gameOver.highScore);
+        this.postScores(game.state.states.gameOver.currentScores);
+      }
     });
   },
 
