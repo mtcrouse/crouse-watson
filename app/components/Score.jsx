@@ -1,10 +1,14 @@
 import React from 'react';
 
 const Score = React.createClass({
+  componentDidMount() {
+    console.log();
+  },
+
   render() {
     return (
       <div>
-        {this.props.currentUser[0].highScore}
+        {this.props.currentUser.highScore}
       </div>
     )
   }

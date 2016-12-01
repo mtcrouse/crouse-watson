@@ -55,6 +55,7 @@ const Main = React.createClass({
           this.setState({ isLoggedIn: true });
           this.getCurrentUser();
           this.getAllUsers();
+          this.getUserScores();
         } else {
           this.setState({ isLoggedIn: false });
         }
@@ -78,6 +79,7 @@ const Main = React.createClass({
   postScores(currentScores) {
     axios.post('/scores', { currentScores })
       .then(res => {
+        this.getUserScores();
       })
       .catch(err => {
         console.error(err);
