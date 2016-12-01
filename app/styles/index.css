@@ -1,6 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#w {
+  display: block;
+  width: 750px;
+  margin: 0 auto;
+  padding-top: 30px;
+  padding-bottom: 45px;
+}
+
+/** profile nav links **/
+#profiletabs {
+  display: block;
+  margin-bottom: 4px;
+  height: 50px;
+}
+
+#profiletabs ul { list-style: none; display: block; width: 70%; height: 50px; }
+#profiletabls ul li { float: left; }
+#profiletabs ul li a {
+  display: block;
+  float: left;
+  padding: 8px 11px;
+  font-size: 1.2em;
+  font-weight: bold;
+  background: #eae8db;
+  color: #666;
+  margin-right: 7px;
+  border: 1px solid #fff;
+  -webkit-border-radius: 5px;
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-radius: 5px;
+  -moz-border-radius-bottomleft: 0;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+}
+#profiletabs ul li a:hover {
+  text-decoration: none;
+  background: #dad7c2;
+  color: #565656;
+}
+
+#profiletabs ul li a.sel {
+  background: #fff;
+  border-color: #d1cdb5;
+}
+
+#user-content {
+  display: block;
+  width: 100%;
+  background: #fff;
+  padding: 25px 20px;
+  padding-bottom: 35px;
+}
+
+/* aaaddfidosjafiowjefoawjefioawjefoiawjefiojawoiefjoiawjefoiwajefoija */
+
+
 body {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   text-align: center;
   background-color: navy;
   color: white;
@@ -28,16 +90,19 @@ header, footer {
 }
 
 #link-options {
-  list-style: none;
   margin: 0;
   padding: 0;
   margin-bottom: 15px;
 }
 
-li {
-  padding: 10px;
+ul {
+  list-style: none;
 }
 
 #authors {
   padding: 5px;
+}
+
+#user-content {
+  color: black;
 }

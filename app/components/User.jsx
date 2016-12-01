@@ -15,7 +15,7 @@ const User = React.createClass({
     return (
 
       <div id='w'>
-        <div id="content" className="clearfix">
+        <div id="user-content" className="clearfix">
           <h1>User Profile</h1>
         <nav id="profiletabs">
           <ul className="clearfix">
