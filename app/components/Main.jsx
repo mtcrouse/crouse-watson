@@ -81,14 +81,11 @@ const Main = React.createClass({
     axios.post('/scores', { currentScores })
       .then(res => {
         this.getUserScores();
+        this.getAllUsers();
       })
       .catch(err => {
         console.error(err);
       });
-  },
-
-  updateLeaderboard() {
-    // State mutator to update leaderboard
   },
 
   signIn() {

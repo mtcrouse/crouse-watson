@@ -10,7 +10,7 @@ import { Link, Redirect } from 'react-router';
 const User = React.createClass({
 
   componentDidMount(){
-    
+
   },
   render() {
     return (
@@ -20,17 +20,18 @@ const User = React.createClass({
 
           <div id="user-content" className="clearfix">
             <h1>User Profile</h1>
-          <nav id="profiletabs">
-            <ul className="clearfix">
-              <li><Link to='/user/score'>Score</Link></li>
-              <li><Link to='/user/friends'>Friends</Link></li>
-              <li><Link to='/user/leaderboard'>Leaderboard</Link></li>
-            </ul>
-          </nav>
-          </div>
+            <nav id="profiletabs">
+              <ul className="clearfix">
+                <li><Link to='/user/score'>Score</Link></li>
+                <li><Link to='/user/friends'>Friends</Link></li>
+                <li><Link to='/user/leaderboard'>Leaderboard</Link></li>
+              </ul>
+            </nav>
             <Match pattern="/user/score"  render={ () => <Score { ...this.props } /> } />
             <Match pattern="/user/friends"  render={ () => <Friends { ...this.props } /> } />
             <Match pattern="/user/leaderboard"  render={ () => <Leaderboard { ...this.props } /> } />
+          </div>
+
         </div>
       </div>
 

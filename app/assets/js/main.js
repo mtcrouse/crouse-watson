@@ -6,7 +6,6 @@ const mainState = {
 		this.usingAirconsole = data.usingAirconsole;
 		this.highScore = data.highScore;
 		this.currentScores = data.currentScores;
-		console.log(`Current scores = ${this.currentScores}`);
 		console.log(`Airconsole is... ${this.usingAirconsole}`);
 	},
 
@@ -25,12 +24,15 @@ const mainState = {
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
 
+		this.bronze = this.game.add.group();
+		this.bronze.enableBody = true;
+
 		const startingPlatform = this.platforms.create(0, 300, 'platform');
 		startingPlatform.body.immovable = true;
 		startingPlatform.body.velocity.x = -30;
 
 		this.game.time.events.loop(4000, this.addPlatform, this);
-		this.game.time.events.loop(15000, this.upDifficulty, this);
+		this.game.time.events.loop(30000, this.upDifficulty, this);
 
 		this.player = this.game.add.sprite(40, 250, 'player');
 
@@ -75,12 +77,14 @@ const mainState = {
 		}
 
 		this.addGold();
-		this.game.time.events.loop(10000, this.addSilver, this);
-		this.game.time.events.loop(7000, this.addBomb, this);
+		this.game.time.events.loop(12000, this.addSilver, this);
+		this.game.time.events.loop(10000, this.addBomb, this);
 
 		if (this.mode === 'singleplayer' && this.highScore !== undefined) {
 			this.highScoreText = this.game.add.text(600, 16, `High Score: ${this.highScore}`, { fontSize: '20px', fill: '#fff' });
 		}
+		this.difficultyText = this.game.add.text(655, 555, `Difficulty: ${this.difficulty}`, { fontSize: '20px', fill: '#fff' });
+
 	},
 
 	update: function() {
@@ -98,6 +102,7 @@ const mainState = {
 
 		this.game.physics.arcade.collide(this.gold, this.platforms);
 		this.game.physics.arcade.collide(this.player, this.platforms);
+		this.game.physics.arcade.collide(this.player, this.bronze, this.collectBronze, null, this);
 		this.game.physics.arcade.overlap(this.player, this.gold, this.collectGold, null, this);
 		this.game.physics.arcade.overlap(this.player, this.silver, this.collectSilver, null, this);
 		this.game.physics.arcade.overlap(this.player, this.bombs, this.hitBomb, null, this);
@@ -206,7 +211,8 @@ const mainState = {
 		let ledge = this.platforms.create(ledgeX, ledgeY, 'platform');
 		ledge.body.immovable = true;
 
-		ledge.body.velocity.y = -40 - (this.difficulty * 2);
+		ledge.body.velocity.y = -40 - (this.difficulty * 3);
+		console.log(`Ledge velocity: ${ledge.body.velocity.y}`);
 	},
 
 	addGold: function() {
@@ -249,7 +255,7 @@ const mainState = {
 		this.silver.enableBody = true;
 
 		var silver = this.silver.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'silver');
-		silver.scale.setTo(.1,.1);
+		silver.scale.setTo(.07,.07);
 
 		silver.body.gravity.y = 100;
 
@@ -276,6 +282,40 @@ const mainState = {
 		}
 	},
 
+	addBronze: function(x, y, side) {
+		var bronze = this.bronze.create(x, y, 'bronze');
+		bronze.scale.setTo(.05,.05);
+
+		bronze.body.gravity.y = this.game.rnd.integerInRange(30,100);
+
+		if (side === 'left') {
+			bronze.body.velocity.x = this.game.rnd.integerInRange(100,200);
+		} else if (side === 'right') {
+			bronze.body.velocity.x = this.game.rnd.integerInRange(-100,-200);
+		}
+
+		bronze.checkWorldBounds = true;
+		bronze.outOfBoundsKill = true;
+	},
+
+	collectBronze: function(player, bronze) {
+		bronze.kill();
+
+		if (player === this.player) {
+			this.score += 20;
+			this.scoreText.text = `${this.player1name}: ` + this.score;
+		} else if (this.mode === 'multiplayer') {
+			if (player === this.player2) {
+				this.score2 += 20;
+				this.scoreText2.text = `${this.player2name}: ` + this.score2;
+			}
+		}
+
+		if (this.mode === 'multiplayer') {
+			this.checkForWin();
+		}
+	},
+
 	addBomb: function() {
 		this.bombs = this.game.add.group();
 		this.bombs.enableBody = true;
@@ -287,10 +327,16 @@ const mainState = {
 				var bomb = this.bombs.create(0, 0, 'bomb');
 				bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
 				bomb.body.velocity.x = this.game.rnd.integerInRange(100,200);
+				if (randomNum > 0.9) {
+					this.addBronze(0, 0, 'left');
+				}
 			} else {
 				var bomb = this.bombs.create(800, 0, 'bomb');
 				bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
 				bomb.body.velocity.x = this.game.rnd.integerInRange(-100,-200);
+				if (randomNum < 0.1) {
+					this.addBronze(800, 0, 'right');
+				}
 			}
 		}
 
@@ -306,7 +352,8 @@ const mainState = {
 
 	upDifficulty() {
 		this.difficulty += 1;
-		console.log(`Difficulty: ${this.difficulty}`)
+		this.difficultyText.destroy();
+		this.difficultyText = this.game.add.text(655, 555, `Difficulty: ${this.difficulty}`, { fontSize: '20px', fill: '#fff' });
 	},
 
 	checkForWin() {

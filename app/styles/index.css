@@ -94,6 +94,7 @@ button:hover {
   background: #fff;
   padding: 25px 20px;
   padding-bottom: 35px;
+  overflow-y: scroll;
 }
 
 /* aaaddfidosjafiowjefoawjefioawjefoiawjefiojawoiefjoiawjefoiwajefoija */
@@ -147,4 +148,8 @@ fill: none;
 stroke: grey;
 stroke-width: 1;
 shape-rendering: crispEdges;
+}
+
+#leaderboard-table {
+  margin: 0 auto;
 }
