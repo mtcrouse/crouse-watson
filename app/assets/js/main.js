@@ -24,15 +24,13 @@ const mainState = {
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
 
-		this.ground = this.platforms.create(0, this.game.world.height - 64, 'ground');
-
-		this.ground.scale.setTo(2, 2);
-		this.ground.body.immovable = true;
-		this.ground.body.velocity.y = 5;
+		const startingPlatform = this.platforms.create(0, 300, 'platform');
+		startingPlatform.body.immovable = true;
+		startingPlatform.body.velocity.x = -30;
 
 		this.game.time.events.loop(4000, this.addPlatform, this);
 
-		this.player = this.game.add.sprite(700, this.game.world.height - 150, 'player');
+		this.player = this.game.add.sprite(40, 250, 'player');
 
 		this.game.physics.arcade.enable(this.player);
 
@@ -49,7 +47,11 @@ const mainState = {
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		if (this.mode === 'multiplayer') {
-			this.player2 = this.game.add.sprite(32, this.game.world.height - 150, 'player2');
+			const startingPlatform2 = this.platforms.create(500, 300, 'platform');
+			startingPlatform2.body.immovable = true;
+			startingPlatform2.body.velocity.x = 30;
+
+			this.player2 = this.game.add.sprite(600, 250, 'player2');
 
 			this.game.physics.arcade.enable(this.player2);
 

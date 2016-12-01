@@ -52,15 +52,11 @@ const Intro = React.createClass({
         {/* <Link to="/play">
           <div id="gameDiv"></div>
         </Link> */}
-        <h1>Welcome to the game!</h1>
         <ul id="link-options">
-          <li><Link to='/play'>Play the game!</Link></li>
-          <li><Link to='/airconsole'>Play the game with Air Console!</Link></li>
-
-          <li><Link to='/signin'>Create an account or sign in!</Link></li>
-
-          <li><Link to='/user'>Show user page</Link></li>
-
+          <Link to='/play'><li>PLAY</li></Link>
+          <Link to='/airconsole'><li>AIR CONSOLE</li></Link>
+          <Link to='/signin'><li>SIGN IN</li></Link>
+          {/* <Link to='/user'><li>PROFILE</li></Link> */}
         </ul>
       </main>
     )

@@ -2,6 +2,25 @@
   margin: 0;
   padding: 0;
   border: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  height: 50vh;
+}
+
+canvas {
+  margin: 0 auto;
+}
+
+header {
+  padding: 5px;
+  background: black;
 }
 
 #w {
@@ -19,29 +38,25 @@
   height: 50px;
 }
 
-#profiletabs ul { list-style: none; display: block; width: 70%; height: 50px; }
-#profiletabls ul li { float: left; }
+#profiletabs ul {
+  list-style: none;
+  display: block;
+  width: 70%;
+  height: 50px;
+}
+
 #profiletabs ul li a {
   display: block;
   float: left;
   padding: 8px 11px;
   font-size: 1.2em;
   font-weight: bold;
-  background: #eae8db;
-  color: #666;
-  margin-right: 7px;
-  border: 1px solid #fff;
-  -webkit-border-radius: 5px;
-  -webkit-border-bottom-left-radius: 0;
-  -moz-border-radius: 5px;
-  -moz-border-radius-bottomleft: 0;
-  border-radius: 5px;
-  border-bottom-left-radius: 0;
+  background: #000;
 }
+
 #profiletabs ul li a:hover {
-  text-decoration: none;
-  background: #dad7c2;
-  color: #565656;
+  background: #fa3;
+  color: #000;
 }
 
 #profiletabs ul li a.sel {
@@ -59,13 +74,11 @@
 
 /* aaaddfidosjafiowjefoawjefioawjefoiawjefiojawoiefjoiawjefoiwajefoija */
 
-
 body {
-  padding: 0;
-  margin: 0;
-  text-align: center;
   background-color: navy;
   color: white;
+  height: 100vh;
+  overflow: hidden;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -73,34 +86,23 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
-canvas {
-    padding-left: 0;
-    padding-right: 0;
-    margin: 15px auto;
-    display: block;
-    width: 800px;
-}
-
-header, footer {
-  background-color: black;
-  text-decoration: none;
-  text-align: center;
-  color: white;
-  padding: 5px;
-}
-
 #link-options {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 15px;
+  margin: 25vh auto;
+  width: 50%;
+}
+
+#link-options li {
+  margin: 30px 0;
+  padding: 3vh 3vw;
+  border: 4px solid white;
+}
+
+#link-options li:hover {
+  background: #000;
 }
 
 ul {
   list-style: none;
-}
-
-#authors {
-  padding: 5px;
 }
 
 #user-content {

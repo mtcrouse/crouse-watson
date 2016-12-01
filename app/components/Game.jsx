@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Header from './layout/Header';
 
 let game;
 
@@ -54,6 +55,7 @@ const Game = React.createClass({
   render() {
     return (
       <div>
+        <Header />
         <div id="gameDiv"></div>
       </div>
     )

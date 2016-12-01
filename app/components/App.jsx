@@ -9,9 +9,7 @@ const App = React.createClass({
     return (
       <BrowserRouter>
         <div>
-          <Header />
           <Main />
-          <Footer />
         </div>
       </BrowserRouter>
     )
