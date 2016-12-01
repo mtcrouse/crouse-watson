@@ -12,14 +12,10 @@ const Intro = React.createClass({
 
   SignOut() {
     if (this.props.isLoggedIn === true) {
-      return <li onClick={this.handleClick}>SIGN OUT</li>;
+      return <li onClick={this.props.signOut}>SIGN OUT</li>;
     } else {
       return <br />;
     }
-  },
-
-  handleClick() {
-    this.props.signOut();
   },
 
   render() {

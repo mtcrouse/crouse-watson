@@ -22,7 +22,7 @@ const SignIn = React.createClass({
     axios.post('/token', data)
       .then(res => {
         this.props.signIn();
-        return <Redirect to={'/'} />;
+        return <Redirect to={{ pathname: '/' }} />;
       })
       .catch(err => {
         console.error(err);

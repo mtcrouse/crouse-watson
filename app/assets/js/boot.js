@@ -1,6 +1,11 @@
 const bootState = {
   init: function(data) {
-    this.highScore = data.highScore;
+    try {
+      this.highScore = data.highScore;
+    } catch (err) {
+      console.log(err);
+      this.highScore = null;
+    }
   },
 
   create: function() {
