@@ -17,9 +17,9 @@ const mainState = {
 		this.game.add.sprite(0, 0, 'background');
 
 		this.scream = this.game.add.audio('scream');
-		this.starSound = this.game.add.audio('starsound');
+		this.goldSound = this.game.add.audio('goldsound');
 		this.bombSound = this.game.add.audio('bombsound');
-		this.diamondSound = this.game.add.audio('diamondsound');
+		this.silverSound = this.game.add.audio('silversound');
 
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
@@ -72,8 +72,8 @@ const mainState = {
 			};
 		}
 
-		this.addStars();
-		this.game.time.events.loop(10000, this.addDiamond, this);
+		this.addGold();
+		this.game.time.events.loop(10000, this.addSilver, this);
 		this.game.time.events.loop(7000, this.addBomb, this);
 
 		if (this.mode === 'singleplayer' && this.highScore !== undefined) {
@@ -94,10 +94,10 @@ const mainState = {
 			this.scream.play();
 		}
 
-		this.game.physics.arcade.collide(this.stars, this.platforms);
+		this.game.physics.arcade.collide(this.gold, this.platforms);
 		this.game.physics.arcade.collide(this.player, this.platforms);
-		this.game.physics.arcade.overlap(this.player, this.stars, this.collectStar, null, this);
-		this.game.physics.arcade.overlap(this.player, this.diamonds, this.collectDiamond, null, this);
+		this.game.physics.arcade.overlap(this.player, this.gold, this.collectGold, null, this);
+		this.game.physics.arcade.overlap(this.player, this.silver, this.collectSilver, null, this);
 		this.game.physics.arcade.overlap(this.player, this.bombs, this.hitBomb, null, this);
 
 		//  Reset the players velocity (movement)
@@ -130,8 +130,8 @@ const mainState = {
 			}
 
 			this.game.physics.arcade.collide(this.player2, this.platforms);
-			this.game.physics.arcade.overlap(this.player2, this.stars, this.collectStar, null, this);
-			this.game.physics.arcade.overlap(this.player2, this.diamonds, this.collectDiamond, null, this);
+			this.game.physics.arcade.overlap(this.player2, this.gold, this.collectGold, null, this);
+			this.game.physics.arcade.overlap(this.player2, this.silver, this.collectSilver, null, this);
 			this.game.physics.arcade.overlap(this.player2, this.bombs, this.hitBomb, null, this);
 
 			// Player 2 controls for keyboard
@@ -192,8 +192,8 @@ const mainState = {
 			}
 		}
 
-		if (this.stars.countLiving() === 0) {
-			this.addStars();
+		if (this.gold.countLiving() === 0) {
+			this.addGold();
 		}
 	},
 
@@ -206,59 +206,57 @@ const mainState = {
 		ledge.body.velocity.y = -40;
 	},
 
-	addStars: function() {
-		this.stars = this.game.add.group();
-		this.stars.enableBody = true;
+	addGold: function() {
+		this.gold = this.game.add.group();
+		this.gold.enableBody = true;
 
 		for (var i = 0; i < 5; i++) {
-				var star = this.stars.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'star');
+				var gold = this.gold.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'gold');
+				gold.scale.setTo(.04,.04);
 
-				star.body.gravity.y = this.game.rnd.integerInRange(40,200);
-				star.body.bounce.y = 0.7 + Math.random() * 0.2;
+				gold.body.gravity.y = this.game.rnd.integerInRange(40,200);
+				gold.body.bounce.y = 0.7 + Math.random() * 0.2;
 
-				star.checkWorldBounds = true;
-    		star.outOfBoundsKill = true;
+				gold.checkWorldBounds = true;
+    		gold.outOfBoundsKill = true;
 		}
 	},
 
-	collectStar: function(player, star) {
-			star.kill();
-			this.starSound.play();
+	collectGold: function(player, gold) {
+		gold.kill();
+		this.goldSound.play();
 
-			if (player === this.player) {
-				this.score += 5;
-				this.scoreText.text = `${this.player1name}: ` + this.score;
-			} else if (this.mode === 'multiplayer') {
-				if (player === this.player2) {
-					this.score2 += 5;
-					this.scoreText2.text = `${this.player2name}: ` + this.score2;
-				}
+		if (player === this.player) {
+			this.score += 5;
+			this.scoreText.text = `${this.player1name}: ` + this.score;
+		} else if (this.mode === 'multiplayer') {
+			if (player === this.player2) {
+				this.score2 += 5;
+				this.scoreText2.text = `${this.player2name}: ` + this.score2;
 			}
+		}
 
-			if (this.mode === 'multiplayer') {
-				if (this.score >= 100) {
-					this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
-				} else if (this.score2 >= 100) {
-					this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
-				}
-			}
+		if (this.mode === 'multiplayer') {
+			this.checkForWin();
+		}
 	},
 
-	addDiamond: function() {
-		this.diamonds = this.game.add.group();
-		this.diamonds.enableBody = true;
+	addSilver: function() {
+		this.silver = this.game.add.group();
+		this.silver.enableBody = true;
 
-		var diamond = this.diamonds.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'diamond');
+		var silver = this.silver.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'silver');
+		silver.scale.setTo(.1,.1);
 
-		diamond.body.gravity.y = 100;
+		silver.body.gravity.y = 100;
 
-		diamond.checkWorldBounds = true;
-		diamond.outOfBoundsKill = true;
+		silver.checkWorldBounds = true;
+		silver.outOfBoundsKill = true;
 	},
 
-	collectDiamond: function(player, diamond) {
-		diamond.kill();
-		this.diamondSound.play();
+	collectSilver: function(player, silver) {
+		silver.kill();
+		this.silverSound.play();
 
 		if (player === this.player) {
 			this.score += 10;
@@ -271,11 +269,7 @@ const mainState = {
 		}
 
 		if (this.mode === 'multiplayer') {
-			if (this.score >= 100) {
-				this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
-			} else if (this.score2 >= 100) {
-				this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
-			}
+			this.checkForWin();
 		}
 	},
 
@@ -303,6 +297,14 @@ const mainState = {
 		bomb.kill();
 		this.bombSound.play();
 		this.die(player);
+	},
+
+	checkForWin() {
+		if (this.score >= 100) {
+			this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
+		} else if (this.score2 >= 100) {
+			this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
+		}
 	},
 
 	die: function(player) {
