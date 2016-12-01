@@ -76,7 +76,7 @@ const mainState = {
 		this.game.time.events.loop(10000, this.addDiamond, this);
 		this.game.time.events.loop(7000, this.addBomb, this);
 
-		if (this.mode === 'singleplayer') {
+		if (this.mode === 'singleplayer' && this.highScore !== undefined) {
 			this.highScoreText = this.game.add.text(600, 16, `High Score: ${this.highScore}`, { fontSize: '20px', fill: '#fff' });
 		}
 	},

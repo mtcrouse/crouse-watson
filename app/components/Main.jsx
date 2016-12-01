@@ -78,7 +78,6 @@ const Main = React.createClass({
   postScores(currentScores) {
     axios.post('/scores', { currentScores })
       .then(res => {
-        console.log('post from main went through');
       })
       .catch(err => {
         console.error(err);
@@ -121,6 +120,7 @@ const Main = React.createClass({
         <Match pattern="/airconsole" exactly component={AirConsole} />
         <Match pattern="/signin" exactly render={
           () => <SignIn
+                  { ...this.state }
                   signIn={this.signIn}
                 /> } />
         <Miss component={NotFound} />

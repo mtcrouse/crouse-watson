@@ -6,7 +6,8 @@ import { Link, Redirect } from 'react-router';
 
 const SignIn = React.createClass({
   getInitialState() {
-    return this.state = {email: '', password: ''};
+    const loggedIn = this.props.isLoggedIn;
+    return this.state = { email: '', password: '', loggedIn };
   },
 
   handleChange(event) {
@@ -18,31 +19,38 @@ const SignIn = React.createClass({
     let data = { email: this.state.email,
       password: this.state.password
     };
-
     axios.post('/token', data)
       .then(res => {
         this.props.signIn();
-        return <Redirect to={{ pathname: '/' }} />;
+        this.setState({loggedIn: true});
       })
       .catch(err => {
         console.error(err);
       });
   },
 
+  SignInOrSignUp() {
+    if (this.state.loggedIn) {
+      return <Redirect to="/" />
+    } else {
+      return <div id="signin-signup">
+        <p>Create an account</p>
+        <SignUp />
+        <p>Sign in if you already have an account</p>
+        <form onSubmit={this.handleSubmit}>
+          <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
+          <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
+          <button type="submit">SUBMIT</button>
+        </form>
+      </div>
+    }
+  },
+
   render() {
     return (
       <div>
         <Header />
-          <div id="signin-signup">
-            <p>Create an account</p>
-            <SignUp />
-            <p>Sign in if you already have an account</p>
-            <form onSubmit={this.handleSubmit}>
-              <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
-              <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
-              <button type="submit">SUBMIT</button>
-            </form>
-          </div>
+        <this.SignInOrSignUp />
       </div>
     )
   }
