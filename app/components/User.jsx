@@ -10,7 +10,7 @@ import { Link, Redirect } from 'react-router';
 const User = React.createClass({
 
   componentDidMount(){
-    console.log(this.props);
+    
   },
   render() {
     return (
