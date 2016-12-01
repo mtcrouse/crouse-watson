@@ -12,28 +12,51 @@ const Main = React.createClass({
   getInitialState() {
     return {
       currentUser: {},
-      users: []
+      users: [],
+      isLoggedIn: false
     }
   },
 
-  componentDidMount() {
+  getCurrentUser() {
     axios.get('/users/currentuser')
       .then(res => {
         this.setState({ currentUser: res.data });
+
       })
       .catch(err => {
         this.setState({ loadErr: err });
       });
-    // axios.get('/scores/users')
-    //   .then(res => {
-    //     this.setState({ currentUserScores: res.data });
-    //   })
-    //   .catch(err => {
-    //     this.setState({ loadErr: err });
-    //   });
+  },
+
+  getAllUsers() {
     axios.get('/users')
       .then(res => {
         this.setState({ users: res.data });
+      })
+      .catch(err => {
+        this.setState({ loadErr: err });
+      });
+  },
+
+  getUserScores() {
+    axios.get('/scores/users')
+      .then(res => {
+        this.setState({ currentUserScores: res.data });
+      })
+      .catch(err => {
+        this.setState({ loadErr: err });
+      });
+  },
+
+  componentDidMount() {
+    axios.get('/token')
+      .then(res => {
+        let isLoggedIn = res.data;
+        if (isLoggedIn) {
+          this.state.isLoggedIn = true;
+          this.getCurrentUser();
+          this.getAllUsers();
+        }
       })
       .catch(err => {
         this.setState({ loadErr: err });
@@ -68,7 +91,8 @@ const Main = React.createClass({
   render() {
     return (
       <main>
-        <Match pattern="/" exactly component={Intro} />
+        <Match pattern="/" exactly render={
+          () => <Intro { ...this.state }/> } />
         <Match pattern="/play" exactly render={
           () => <Game
                   { ...this.state }

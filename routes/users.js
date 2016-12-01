@@ -68,7 +68,8 @@ router.get('/users/currentuser', authorize, (req, res, next) => {
   const { userId } = req.token;
 
   knex('users')
-    .innerJoin('scores', 'scores.user_id', 'users.id')
+    .where('id', userId)
+    .first()
     .then((row) => {
       if (!row) {
         return next(boom.create(400, `No user at id ${id}`));
