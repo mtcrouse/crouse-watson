@@ -13,6 +13,7 @@ const mainState = {
 	create: function() {
 		this.score = 0;
 		this.score2 = 0;
+		this.difficulty = 1;
 
 		this.game.add.sprite(0, 0, 'background');
 
@@ -29,6 +30,7 @@ const mainState = {
 		startingPlatform.body.velocity.x = -30;
 
 		this.game.time.events.loop(4000, this.addPlatform, this);
+		this.game.time.events.loop(15000, this.upDifficulty, this);
 
 		this.player = this.game.add.sprite(40, 250, 'player');
 
@@ -44,7 +46,12 @@ const mainState = {
 		this.scoreText = this.game.add.text(16, 16, `${this.player1name}: 0`, { fontSize: '20px', fill: '#fff' });
 
 		// Set up player 1 controls for keyboard
-		this.cursors = this.game.input.keyboard.createCursorKeys();
+		this.wasd = {
+			up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+			down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+			left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+			right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+		};
 
 		if (this.mode === 'multiplayer') {
 			const startingPlatform2 = this.platforms.create(500, 300, 'platform');
@@ -64,12 +71,7 @@ const mainState = {
 
 			this.scoreText2 = this.game.add.text(16, 40, `${this.player2name}: 0`, { fontSize: '20px', fill: '#fff' });
 
-			this.wasd = {
-				up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
-				down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
-				left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
-				right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
-			};
+			this.cursors = this.game.input.keyboard.createCursorKeys();
 		}
 
 		this.addGold();
@@ -103,10 +105,10 @@ const mainState = {
 		//  Reset the players velocity (movement)
 		this.player.body.velocity.x = 0;
 
-		if (this.cursors.left.isDown) {
+		if (this.wasd.left.isDown) {
 			this.player.body.velocity.x = -150;
 			this.player.animations.play('left');
-		} else if (this.cursors.right.isDown) {
+		} else if (this.wasd.right.isDown) {
 			this.player.body.velocity.x = 150;
 			this.player.animations.play('right');
 		} else {
@@ -114,7 +116,7 @@ const mainState = {
 			this.player.frame = 4;
 		}
 
-		if (this.cursors.up.isDown && this.player.body.touching.down) {
+		if (this.wasd.up.isDown && this.player.body.touching.down) {
 			this.player.body.velocity.y = -400;
 		}
 
@@ -137,10 +139,10 @@ const mainState = {
 			// Player 2 controls for keyboard
 			this.player2.body.velocity.x = 0;
 
-			if (this.wasd.left.isDown) {
+			if (this.cursors.left.isDown) {
 				this.player2.body.velocity.x = -150;
 				this.player2.animations.play('left');
-			} else if (this.wasd.right.isDown) {
+			} else if (this.cursors.right.isDown) {
 				this.player2.body.velocity.x = 150;
 				this.player2.animations.play('right');
 			} else {
@@ -148,7 +150,7 @@ const mainState = {
 				this.player2.frame = 4;
 			}
 
-			if (this.wasd.up.isDown && this.player2.body.touching.down) {
+			if (this.cursors.up.isDown && this.player2.body.touching.down) {
 				this.player2.body.velocity.y = -400;
 			}
 
@@ -203,7 +205,8 @@ const mainState = {
 
 		let ledge = this.platforms.create(ledgeX, ledgeY, 'platform');
 		ledge.body.immovable = true;
-		ledge.body.velocity.y = -40;
+
+		ledge.body.velocity.y = -40 - (this.difficulty * 2);
 	},
 
 	addGold: function() {
@@ -279,14 +282,16 @@ const mainState = {
 
 		let randomNum = Math.random();
 
-		if (randomNum > 0.5) {
-			var bomb = this.bombs.create(0, 0, 'bomb');
-			bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
-			bomb.body.velocity.x = this.game.rnd.integerInRange(100,200);
-		} else {
-			var bomb = this.bombs.create(800, 0, 'bomb');
-			bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
-			bomb.body.velocity.x = this.game.rnd.integerInRange(-100,-200);
+		for (let difficulty = this.difficulty; difficulty > 0; difficulty -= 1) {
+			if (randomNum > 0.5) {
+				var bomb = this.bombs.create(0, 0, 'bomb');
+				bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
+				bomb.body.velocity.x = this.game.rnd.integerInRange(100,200);
+			} else {
+				var bomb = this.bombs.create(800, 0, 'bomb');
+				bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
+				bomb.body.velocity.x = this.game.rnd.integerInRange(-100,-200);
+			}
 		}
 
 		bomb.checkWorldBounds = true;
@@ -297,6 +302,11 @@ const mainState = {
 		bomb.kill();
 		this.bombSound.play();
 		this.die(player);
+	},
+
+	upDifficulty() {
+		this.difficulty += 1;
+		console.log(`Difficulty: ${this.difficulty}`)
 	},
 
 	checkForWin() {
