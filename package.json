@@ -21,6 +21,8 @@
     "axios": "^0.15.3",
     "normalize.css": "^4.2.0",
     "react": "^15.4.1",
+    "react-d3-basic": "^1.6.11",
+    "react-d3-library": "^1.1.7",
     "react-dom": "^15.3.1",
     "react-router": "^4.0.0-alpha.6",
     "auto-reload-brunch": "^2.7.1",

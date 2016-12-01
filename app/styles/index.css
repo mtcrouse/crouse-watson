@@ -103,7 +103,7 @@ body {
   background-color: navy;
   color: white;
   height: 100vh;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 a:link, a:visited, a:hover, a:active {

@@ -1,6 +1,7 @@
 import React from 'react';
 import Intro from './Intro';
 import Score from './Score';
+import Scored3 from './Scored3';
 import Friends from './Friends';
 import Leaderboard from './Leaderboard';
 import Header from './layout/Header';
