@@ -29,6 +29,7 @@ const SignUp = React.createClass({
         axios.post('/token', data)
           .then(res => {
             console.log('successfully posted token');
+            this.props.handleSignUpSubmit();
           })
           .catch(err => {
             console.error(err);

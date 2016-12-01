@@ -79,8 +79,8 @@ button:hover {
 }
 
 #profiletabs ul li a:hover {
-  background: #fa3;
-  color: #000;
+  background: navy;
+  color: #fff;
 }
 
 #profiletabs ul li a.sel {

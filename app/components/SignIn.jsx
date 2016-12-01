@@ -29,13 +29,18 @@ const SignIn = React.createClass({
       });
   },
 
+  handleSignUpSubmit() {
+    this.props.signIn();
+    this.setState({loggedIn: true});
+  },
+
   SignInOrSignUp() {
     if (this.state.loggedIn) {
       return <Redirect to="/" />
     } else {
       return <div id="signin-signup">
         <p>Create an account</p>
-        <SignUp />
+        <SignUp handleSignUpSubmit={this.handleSignUpSubmit}/>
         <p>Sign in if you already have an account</p>
         <form onSubmit={this.handleSubmit}>
           <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
