@@ -152,4 +152,9 @@ shape-rendering: crispEdges;
 
 #leaderboard-table {
   margin: 0 auto;
+  border: 3px solid black;
+}
+
+#leaderboard-table th {
+  padding: 0 30px;
 }

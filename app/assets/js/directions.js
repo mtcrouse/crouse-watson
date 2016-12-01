@@ -26,7 +26,7 @@ const directionsState = {
     const starDirections = this.game.add.text(80, 300, 'Collect items to get points, but don\'t hit the bottom or top of the screen',
                                     { font: '20px Arial', fill: '#ffffff'});
     const points = this.game.add.text(80, 350,
-                                    'Stars are worth 5 points and diamonds are worth 10 points',
+                                    'Gold coins are worth 5 points and silver coins are worth 10 points',
                                     { font: '20px Arial', fill: '#ffffff'});
     const startDirections = this.game.add.text(80, 400,
                                     'Press W to start!',

@@ -20,9 +20,9 @@ const Leaderboard = React.createClass({
       <table className="clearfix" id="leaderboard-table">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>User</th>
-            <th>High Score</th>
+            <th>RANK</th>
+            <th>USER</th>
+            <th>HIGH SCORE</th>
           </tr>
         </thead>
         <tbody>
