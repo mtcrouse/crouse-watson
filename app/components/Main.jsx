@@ -98,7 +98,6 @@ const Main = React.createClass({
   signOut() {
     axios.delete('/token')
       .then(res => {
-        console.log('deleted cookie');
         this.setState({
           currentUser: {},
           currentUserScores: [],

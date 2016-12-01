@@ -6,7 +6,6 @@ const mainState = {
 		this.usingAirconsole = data.usingAirconsole;
 		this.highScore = data.highScore;
 		this.currentScores = data.currentScores;
-		console.log(`Airconsole is... ${this.usingAirconsole}`);
 	},
 
 	create: function() {
@@ -212,7 +211,6 @@ const mainState = {
 		ledge.body.immovable = true;
 
 		ledge.body.velocity.y = -40 - (this.difficulty * 3);
-		console.log(`Ledge velocity: ${ledge.body.velocity.y}`);
 	},
 
 	addGold: function() {
@@ -255,7 +253,7 @@ const mainState = {
 		this.silver.enableBody = true;
 
 		var silver = this.silver.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'silver');
-		silver.scale.setTo(.07,.07);
+		silver.scale.setTo(.04,.04);
 
 		silver.body.gravity.y = 100;
 
@@ -284,7 +282,7 @@ const mainState = {
 
 	addBronze: function(x, y, side) {
 		var bronze = this.bronze.create(x, y, 'bronze');
-		bronze.scale.setTo(.05,.05);
+		bronze.scale.setTo(.04,.04);
 
 		bronze.body.gravity.y = this.game.rnd.integerInRange(30,100);
 

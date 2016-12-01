@@ -44,7 +44,7 @@ const menuState = {
         }
       }
     } catch (error) {
-      console.log('no airconsole');
+      console.log(error);
     }
   },
 

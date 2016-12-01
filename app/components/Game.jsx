@@ -43,9 +43,7 @@ const Game = React.createClass({
       this.postScores(game.state.states.gameOver.currentScores);
     }
 
-    if (game === undefined) {
-      console.log('game not started');
-    } else {
+    if (game !== undefined) {
       game.destroy();
       game = undefined;
     }

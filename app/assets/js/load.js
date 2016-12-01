@@ -23,9 +23,9 @@ const loadState = {
   },
 
   create: function() {
-    // this.chopin = this.game.add.audio('chopin');
-    // this.chopin.loop = true;
-    // this.chopin.play();
+    this.chopin = this.game.add.audio('chopin');
+    this.chopin.loop = true;
+    this.chopin.play();
 
     this.game.state.start('menu', true, false, { 'highScore': this.highScore, 'currentScores': this.currentScores });
   }
