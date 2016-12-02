@@ -19,6 +19,7 @@ const loadState = {
     this.game.load.audio('goldsound', 'sounds/goldsound.mp3');
     this.game.load.audio('bombsound', 'sounds/bombsound.mp3');
     this.game.load.audio('silversound', 'sounds/silversound.mp3');
+    this.game.load.audio('bronzesound', 'sounds/bronzesound.mp3');
     this.game.load.audio('chopin', 'sounds/chopin.mp3');
   },
 

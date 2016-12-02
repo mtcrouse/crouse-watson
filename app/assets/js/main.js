@@ -19,6 +19,7 @@ const mainState = {
 		this.goldSound = this.game.add.audio('goldsound');
 		this.bombSound = this.game.add.audio('bombsound');
 		this.silverSound = this.game.add.audio('silversound');
+		this.bronzeSound = this.game.add.audio('bronzesound');
 
 		this.platforms = this.game.add.group();
 		this.platforms.enableBody = true;
@@ -298,6 +299,7 @@ const mainState = {
 
 	collectBronze: function(player, bronze) {
 		bronze.kill();
+		this.bronzeSound.play();
 
 		if (player === this.player) {
 			this.score += 20;
