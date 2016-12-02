@@ -19,7 +19,7 @@ exports.seed = function(knex) {
         username: 'karlwatson',
         email: 'karlwatson@gmail.com',
         name: 'karl',
-        high_score: 0,
+        high_score: 100,
         hashed_password: '$2a$12$8CScAArxojTvWIfduGGzHe1llWA4MhWMJnXhU4QqVh8i4xiBMRhzK',
         created_at: new Date('2016-11-25 16:17:12 UTC'),
         updated_at: new Date('2016-11-25 16:17:12 UTC')
