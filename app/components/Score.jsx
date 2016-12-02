@@ -35,10 +35,10 @@ const Score = React.createClass({
     var y = d3.scale.linear().range([height, 0]);
 
     var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(10);
+    .orient("bottom").ticks(5);
 
     var yAxis = d3.svg.axis().scale(y)
-    .orient("left").ticks(10);
+    .orient("left").ticks(5);
 
     var valueline = d3.svg.line()
     .x(function(d) { return x(d.date); })
