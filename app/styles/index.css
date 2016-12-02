@@ -10,10 +10,6 @@ html {
   height: 100vh;
 }
 
-body {
-  height: 50vh;
-}
-
 canvas {
   margin: 0 auto;
 }

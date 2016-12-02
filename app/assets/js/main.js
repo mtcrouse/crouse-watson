@@ -91,13 +91,11 @@ const mainState = {
 		// Kill player when touching the bottom
 		if (this.player.body.position.y >= this.game.world.height - this.player.body.height) {
 			this.die(this.player);
-			this.scream.play();
 		}
 
 		// Kill player when touching the top
 		if (this.player.body.position.y <= 0) {
 			this.die(this.player);
-			this.scream.play();
 		}
 
 		this.game.physics.arcade.collide(this.gold, this.platforms);
@@ -128,12 +126,10 @@ const mainState = {
 		if (this.mode === 'multiplayer') {
 			if (this.player2.body.position.y >= this.game.world.height - this.player2.body.height) {
 				this.die(this.player2);
-				this.scream.play();
 			}
 
 			if (this.player2.body.position.y <= 0) {
 				this.die(this.player2);
-				this.scream.play();
 			}
 
 			this.game.physics.arcade.collide(this.player2, this.platforms);
