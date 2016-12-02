@@ -65,8 +65,9 @@ button:hover {
 #profiletabs ul {
   list-style: none;
   display: block;
-  width: 70%;
+  width: 40%;
   height: 50px;
+  margin: 0 auto;
 }
 
 #profiletabs ul li a {
@@ -137,7 +138,7 @@ ul {
 body { font: 16px times;}
 
 path {
-stroke: black;
+stroke: steelblue;
 stroke-width: 2;
 fill: none;
 }

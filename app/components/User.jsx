@@ -19,9 +19,9 @@ const User = React.createClass({
         <div id='w'>
 
           <div id="user-content" className="clearfix">
-            <h1>User Profile</h1>
+            <h1>{this.props.currentUser.name}</h1>
             <nav id="profiletabs">
-              <ul className="clearfix">
+              <ul id='tabs'>
                 <li><Link to='/user/score'>Score</Link></li>
                 <li><Link to='/user/friends'>Friends</Link></li>
                 <li><Link to='/user/leaderboard'>Leaderboard</Link></li>

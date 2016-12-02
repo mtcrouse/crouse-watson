@@ -21,6 +21,7 @@ const Score = React.createClass({
             console.log(data);
       this.setState({ data: data });
   },
+
   componentDidMount(){
 
 
@@ -43,7 +44,7 @@ const Score = React.createClass({
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
-    var svg = d3.select("body")
+    var svg = d3.select("#user-content")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -54,13 +55,7 @@ const Score = React.createClass({
 
 
     // Get the data
-    // d3.csv("./data.csv", function(error, data) {
-    // data.forEach(function(d) {
-    //     d.date = parseDate(d.date);
-    //     d.close = +d.close;
-    // });
 
-    // Scale the range of the data
     x.domain(d3.extent(this.state.data, function(d) { return d.date; }));
     y.domain([0, d3.max(this.state.data, function(d) { return d.close; })]);
 
@@ -73,9 +68,26 @@ const Score = React.createClass({
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
+
+        // svg.append("text")             // text label for the x axis
+        // .attr("x", width / 2 )
+        // .attr("y",  height + margin.bottom)
+        // .style("text-anchor", "middle")
+        // .text("Date");
+
+
+
     svg.append("g")			// Add the Y Axis
         .attr("class", "y axis")
         .call(yAxis);
+
+    svg.append("text")
+    .attr("x", width / 2 )
+    .attr("y",  0 - (margin.top / 2))
+    .style("font-size", "16px")
+    .style("text-anchor", "middle")
+    .style("text-decoration", "underline")
+    .text("Score vs Date Graph");
   },
 
     componentWillUnmount() {
@@ -90,7 +102,7 @@ const Score = React.createClass({
   render() {
     return (
       <div>
-        {this.props.currentUser.highScore}
+          HighScore: {this.props.currentUser.highScore}
       </div>
     )
   }
