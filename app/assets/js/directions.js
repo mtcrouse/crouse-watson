@@ -31,21 +31,23 @@ const directionsState = {
     const goldDirections = this.game.add.text(280, 300, '= 5 points',
                                     { font: '20px Arial', fill: '#ffffff'});
 
-    let silver = this.game.add.sprite(400, 300, 'silver');
+    let silver = this.game.add.sprite(390, 300, 'silver');
     silver.scale.setTo(.04, .04);
 
-    const silverDirections = this.game.add.text(430, 300, '= 10 points',
+    const silverDirections = this.game.add.text(420, 300, '= 10 points',
                                     { font: '20px Arial', fill: '#ffffff'});
 
-    let bronze = this.game.add.sprite(550, 300, 'bronze');
+    let bronze = this.game.add.sprite(540, 300, 'bronze');
     bronze.scale.setTo(.04, .04);
 
-    const bronzeDirections = this.game.add.text(580, 300, '= 20 points',
+    const bronzeDirections = this.game.add.text(570, 300, '= 20 points',
                                     { font: '20px Arial', fill: '#ffffff'});
 
     const bombs = this.game.add.text(80, 350,
-                                    'Avoid the bottom and top of the map, and don\'t hit the bombs!',
+                                    'Don\'t hit the bottom or top of the map, and avoid the bombs!',
                                     { font: '20px Arial', fill: '#ffffff'});
+
+    this.game.add.sprite(647, 340, 'bomb');
     const startDirections = this.game.add.text(80, 400,
                                     'Press W to start!',
                                     { font: '20px Arial', fill: '#ffffff'});
