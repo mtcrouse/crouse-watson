@@ -9,16 +9,13 @@ const Score = React.createClass({
   },
   componentWillMount(){
     var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-    console.log(this.props.currentUserScores);
     let data = this.props.currentUserScores.map((d, index) => {
                       let l = d.createdAt.slice(0,-5);
                       l = l.replace(/T/g, ' ');
                       // d.createdAt = d.createdAt.slice(0,-14);
-                      console.log(l);
                       l  = parseDate(l);
                       return {close:d.score, date: l}
             });
-            console.log(data);
       this.setState({ data: data });
   },
 
@@ -102,7 +99,7 @@ const Score = React.createClass({
   render() {
     return (
       <div>
-          HighScore: {this.props.currentUser.highScore}
+          High Score: {this.props.currentUser.highScore}
       </div>
     )
   }
