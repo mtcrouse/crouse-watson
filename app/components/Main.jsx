@@ -14,7 +14,8 @@ const Main = React.createClass({
       currentUser: {},
       currentUserScores: [],
       users: [],
-      isLoggedIn: false
+      isLoggedIn: false,
+      currentFriends: []
     }
   },
 
@@ -48,6 +49,17 @@ const Main = React.createClass({
       });
   },
 
+
+
+  getUserFriends() {
+    axios.get('/users/friends')
+      .then(res => {
+        this.setState({ currentFriends: res.data });
+      })
+      .catch(err => {
+        this.setState({ loadErr: err });
+      });
+  },
   componentDidMount() {
     axios.get('/token')
       .then(res => {
@@ -57,6 +69,7 @@ const Main = React.createClass({
           this.getCurrentUser();
           this.getAllUsers();
           this.getUserScores();
+          this.getUserFriends();
         } else {
           this.setState({ isLoggedIn: false });
         }
@@ -131,7 +144,7 @@ const Main = React.createClass({
                   signIn={this.signIn}
                 /> } />
         <Miss component={NotFound} />
-        <Match pattern="/user"  render={ () => <User { ...this.state } /> } />
+        <Match pattern="/user"  render={ () => <User getUserFriends={this.getUserFriends} { ...this.state } /> } />
       </main>
     )
   }

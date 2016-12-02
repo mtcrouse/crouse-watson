@@ -41,29 +41,24 @@ router.get('/users', authorize, (req, res, next) => {
     });
 });
 
+router.get('/users/friends', authorize, (req, res, next) => {
+  const { userId } = req.token;
 
-// router.get('/jobApplications', authorize, (req,res,next) => {
-//     const userId = req.token.userId;
-//     knex('job_applications')
-//     .innerJoin('companies', 'companies.id', 'job_applications.company_id')
-//     .where('user_id', userId)
-//     .returning('job_applications.id')
-//     .then((jobCollection) => {
-//
-//       // console.log(jobCollection);
-//       // res.send(jobCollection);
-//       return knex('job_applications').where('user_id', userId)
-//       .then((j) => {
-//               console.log(jobCollection);
-//               res.send(jobCollection);
-//               res.send(j);
-//               res.
-//           })
-//     })
-//     .catch((err) => {
-//      next(err);
-//    });
-//   });
+  knex('friends')
+    .where('user_id', userId)
+    .then((row) => {
+      console.log('hellp');
+      console.log(row);
+      if (!row) {
+        return next(boom.create(400, `No user at id ${id}`));
+      }
+      res.send(camelizeKeys(row));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.get('/users/currentuser', authorize, (req, res, next) => {
   const { userId } = req.token;
 
