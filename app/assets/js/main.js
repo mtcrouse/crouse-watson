@@ -1,5 +1,5 @@
 const mainState = {
-	init: function(data) {
+	init(data) {
 		this.player1name = data.player1;
 		this.player2name = data.player2;
 		this.mode = data.mode;
@@ -8,7 +8,7 @@ const mainState = {
 		this.currentScores = data.currentScores;
 	},
 
-	create: function() {
+	create() {
 		this.score = 0;
 		this.score2 = 0;
 		this.difficulty = 1;
@@ -28,6 +28,7 @@ const mainState = {
 		this.bronze.enableBody = true;
 
 		const startingPlatform = this.platforms.create(0, 300, 'platform');
+
 		startingPlatform.body.immovable = true;
 		startingPlatform.body.velocity.x = -30;
 
@@ -52,11 +53,12 @@ const mainState = {
 			up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
 			down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
 			left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
-			right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+			right: this.game.input.keyboard.addKey(Phaser.Keyboard.D)
 		};
 
 		if (this.mode === 'multiplayer') {
 			const startingPlatform2 = this.platforms.create(500, 300, 'platform');
+
 			startingPlatform2.body.immovable = true;
 			startingPlatform2.body.velocity.x = 30;
 
@@ -87,7 +89,7 @@ const mainState = {
 
 	},
 
-	update: function() {
+	update() {
 		// Kill player when touching the bottom
 		if (this.player.body.position.y >= this.game.world.height - this.player.body.height) {
 			this.die(this.player);
@@ -155,7 +157,6 @@ const mainState = {
 				this.player2.body.velocity.y = -400;
 			}
 
-
 			// Start AirConsole stuff
 			if (this.usingAirconsole === true) {
 				if (player_control_map[0].move.left) {
@@ -200,43 +201,43 @@ const mainState = {
 		}
 	},
 
-	addPlatform: function() {
-		let ledgeX = this.game.rnd.integerInRange(35,465);
-		let ledgeY = this.game.rnd.integerInRange(600, 630);
+	addPlatform() {
+		const ledgeX = this.game.rnd.integerInRange(35, 465);
+		const ledgeY = this.game.rnd.integerInRange(600, 630);
 
-		let ledge = this.platforms.create(ledgeX, ledgeY, 'platform');
+		const ledge = this.platforms.create(ledgeX, ledgeY, 'platform');
 		ledge.body.immovable = true;
 
 		ledge.body.velocity.y = -40 - (this.difficulty * 3);
 	},
 
-	addGold: function() {
+	addGold() {
 		this.gold = this.game.add.group();
 		this.gold.enableBody = true;
 
-		for (var i = 0; i < 5; i++) {
-				var gold = this.gold.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'gold');
-				gold.scale.setTo(.04,.04);
+		for (let i = 0; i < 5; i++) {
+			const gold = this.gold.create(this.game.rnd.integerInRange(40, 760), this.game.rnd.integerInRange(0, 400), 'gold');
+			gold.scale.setTo(0.04, 0.04);
 
-				gold.body.gravity.y = this.game.rnd.integerInRange(40,200);
-				gold.body.bounce.y = 0.7 + Math.random() * 0.2;
+			gold.body.gravity.y = this.game.rnd.integerInRange(40, 200);
+			gold.body.bounce.y = 0.7 + Math.random() * 0.2;
 
-				gold.checkWorldBounds = true;
-    		gold.outOfBoundsKill = true;
+			gold.checkWorldBounds = true;
+			gold.outOfBoundsKill = true;
 		}
 	},
 
-	collectGold: function(player, gold) {
+	collectGold(player, gold) {
 		gold.kill();
 		this.goldSound.play();
 
 		if (player === this.player) {
 			this.score += 5;
-			this.scoreText.text = `${this.player1name}: ` + this.score;
+			this.scoreText.text = `${this.player1name}: ${this.score}`;
 		} else if (this.mode === 'multiplayer') {
 			if (player === this.player2) {
 				this.score2 += 5;
-				this.scoreText2.text = `${this.player2name}: ` + this.score2;
+				this.scoreText2.text = `${this.player2name}: ${this.score2}`;
 			}
 		}
 
@@ -245,12 +246,13 @@ const mainState = {
 		}
 	},
 
-	addSilver: function() {
+	addSilver() {
 		this.silver = this.game.add.group();
 		this.silver.enableBody = true;
 
-		var silver = this.silver.create(this.game.rnd.integerInRange(40,760), this.game.rnd.integerInRange(0,400), 'silver');
-		silver.scale.setTo(.04,.04);
+		const silver = this.silver.create(this.game.rnd.integerInRange(40, 760), this.game.rnd.integerInRange(0, 400), 'silver');
+
+		silver.scale.setTo(0.04, 0.04);
 
 		silver.body.gravity.y = 100;
 
@@ -258,7 +260,7 @@ const mainState = {
 		silver.outOfBoundsKill = true;
 	},
 
-	collectSilver: function(player, silver) {
+	collectSilver(player, silver) {
 		silver.kill();
 		this.silverSound.play();
 
@@ -277,33 +279,33 @@ const mainState = {
 		}
 	},
 
-	addBronze: function(x, y, side) {
+	addBronze(x, y, side) {
 		var bronze = this.bronze.create(x, y, 'bronze');
-		bronze.scale.setTo(.04,.04);
+		bronze.scale.setTo(0.04, 0.04);
 
-		bronze.body.gravity.y = this.game.rnd.integerInRange(30,100);
+		bronze.body.gravity.y = this.game.rnd.integerInRange(30, 100);
 
 		if (side === 'left') {
-			bronze.body.velocity.x = this.game.rnd.integerInRange(100,200);
+			bronze.body.velocity.x = this.game.rnd.integerInRange(100, 200);
 		} else if (side === 'right') {
-			bronze.body.velocity.x = this.game.rnd.integerInRange(-100,-200);
+			bronze.body.velocity.x = this.game.rnd.integerInRange(-100, -200);
 		}
 
 		bronze.checkWorldBounds = true;
 		bronze.outOfBoundsKill = true;
 	},
 
-	collectBronze: function(player, bronze) {
+	collectBronze(player, bronze) {
 		bronze.kill();
 		this.bronzeSound.play();
 
 		if (player === this.player) {
 			this.score += 20;
-			this.scoreText.text = `${this.player1name}: ` + this.score;
+			this.scoreText.text = `${this.player1name}: ${this.score}`;
 		} else if (this.mode === 'multiplayer') {
 			if (player === this.player2) {
 				this.score2 += 20;
-				this.scoreText2.text = `${this.player2name}: ` + this.score2;
+				this.scoreText2.text = `${this.player2name}: ${this.score2}`;
 			}
 		}
 
@@ -312,24 +314,27 @@ const mainState = {
 		}
 	},
 
-	addBomb: function() {
+	addBomb() {
 		this.bombs = this.game.add.group();
 		this.bombs.enableBody = true;
 
-		let randomNum = Math.random();
+		const randomNum = Math.random();
+		let bomb;
 
 		for (let difficulty = this.difficulty; difficulty > 0; difficulty -= 1) {
 			if (randomNum > 0.5) {
-				var bomb = this.bombs.create(0, 0, 'bomb');
-				bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
-				bomb.body.velocity.x = this.game.rnd.integerInRange(100,200);
+				bomb = this.bombs.create(0, 0, 'bomb');
+
+				bomb.body.gravity.y = this.game.rnd.integerInRange(30, 100);
+				bomb.body.velocity.x = this.game.rnd.integerInRange(100, 200);
 				if (randomNum > 0.9) {
 					this.addBronze(0, 0, 'left');
 				}
 			} else {
-				var bomb = this.bombs.create(800, 0, 'bomb');
-				bomb.body.gravity.y = this.game.rnd.integerInRange(30,100);
-				bomb.body.velocity.x = this.game.rnd.integerInRange(-100,-200);
+				bomb = this.bombs.create(800, 0, 'bomb');
+
+				bomb.body.gravity.y = this.game.rnd.integerInRange(30, 100);
+				bomb.body.velocity.x = this.game.rnd.integerInRange(-100, -200);
 				if (randomNum < 0.1) {
 					this.addBronze(800, 0, 'right');
 				}
@@ -340,7 +345,7 @@ const mainState = {
 		bomb.outOfBoundsKill = true;
 	},
 
-	hitBomb: function(player, bomb) {
+	hitBomb(player, bomb) {
 		bomb.kill();
 		this.bombSound.play();
 		this.die(player);
@@ -354,13 +359,13 @@ const mainState = {
 
 	checkForWin() {
 		if (this.score >= 100) {
-			this.game.state.start('win', true, false, { 'winner': `${this.player1name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
+			this.game.state.start('win', true, false, { winner: `${this.player1name}`, player1: `${this.player1name}`, player2: `${this.player2name}`, highScore: this.highScore });
 		} else if (this.score2 >= 100) {
-			this.game.state.start('win', true, false, { 'winner': `${this.player2name}`, 'player1': `${this.player1name}`, 'player2': `${this.player2name}`, 'highScore': this.highScore });
+			this.game.state.start('win', true, false, { winner: `${this.player2name}`, player1: `${this.player1name}`, player2: `${this.player2name}`, highScore: this.highScore });
 		}
 	},
 
-	die: function(player) {
+	die(player) {
 		player.kill();
 		if (player === this.player) {
 			this.scoreText.text = `${this.player1name}: DEAD`;
@@ -377,13 +382,13 @@ const mainState = {
 		}
 	},
 
-	gameOver: function() {
+	gameOver() {
 		if (this.score > this.highScore) {
 			this.highScore = this.score;
 		}
 		if (this.mode === 'singleplayer') {
 			this.currentScores.push(this.score);
 		}
-		this.game.state.start('gameOver', true, false, { 'highScore': this.highScore, 'currentScores': this.currentScores });
+		this.game.state.start('gameOver', true, false, { highScore: this.highScore, currentScores: this.currentScores });
 	}
 };
