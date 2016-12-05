@@ -5,15 +5,17 @@ const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const { camelizeKeys, decamelizeKeys } = require('humps');
+const { camelizeKeys } = require('humps');
 
+// eslint-disable-next-line new-cap
 const router = express.Router();
 
 const authorize = function(req, res, next) {
-  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, _decoded) => {
     if (err) {
       res.verify = false;
-    } else {
+    }
+    else {
       res.verify = true;
     }
 
@@ -21,7 +23,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/token', authorize, (req, res, next) => {
+router.get('/token', authorize, (req, res, _next) => {
   res.send(res.verify);
 });
 
@@ -62,7 +64,7 @@ router.post('/token', (req, res, next) => {
     });
 });
 
-router.delete('/token', (req, res, next) => {
+router.delete('/token', (req, res, _next) => {
   res.clearCookie('token');
   res.status(200);
   res.send('true');
