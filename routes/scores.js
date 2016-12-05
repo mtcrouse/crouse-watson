@@ -1,12 +1,12 @@
 'use strict';
 
-const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const { camelizeKeys, decamelizeKeys } = require('humps');
+const { camelizeKeys } = require('humps');
 
+// eslint-disable-next-line new-cap
 const router = express.Router();
 
 const authorize = function(req, res, next) {
@@ -39,6 +39,7 @@ router.get('/scores', (req, res, next) => {
 
 router.get('/scores/users', authorize, (req, res, next) => {
   const { userId } = req.token;
+
   knex('scores')
     .where('user_id', userId)
     .then((rows) => {
@@ -54,13 +55,15 @@ router.get('/scores/users', authorize, (req, res, next) => {
 router.post('/scores', authorize, (req, res, next) => {
   const { userId } = req.token;
   const { currentScores } = req.body;
-  for (let score of currentScores) {
+
+  for (const score of currentScores) {
     knex('scores')
       .insert({ user_id: userId, score: Number(score) }, '*')
-      .then(() => {
+      .catch((err) => {
+        next(err);
       });
   }
-  res.send('hello');
+  res.send('Scores succesfully posted');
 });
 
 module.exports = router;
