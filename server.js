@@ -43,11 +43,11 @@ app.use((err, _req, res, _next) => {
   // eslint-disable-next-line no-console
   console.error(JSON.stringify(err, null, 2));
 
-  if(err.status) {
+  if (err.status) {
     return res
       .status(err.status)
       .set('Content-Type', 'text/plain')
-      .send(err.statusText)
+      .send(err.statusText);
   }
 
   // eslint-disable-next-line no-console
