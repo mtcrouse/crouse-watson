@@ -7,9 +7,9 @@ const jwt = require('jsonwebtoken');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
+// eslint-disable-next-line new-cap
 const router = express.Router();
 
-// eslint-disable-next-line new-cap
 const ev = require('express-validation');
 const validations = require('../validations/users');
 
@@ -47,10 +47,8 @@ router.get('/users/friends', authorize, (req, res, next) => {
   knex('friends')
     .where('user_id', userId)
     .then((row) => {
-      console.log('hellp');
-      console.log(row);
       if (!row) {
-        return next(boom.create(400, `No user at id ${id}`));
+        return next(boom.create(400, `No user at id ${userId}`));
       }
       res.send(camelizeKeys(row));
     })
@@ -67,7 +65,7 @@ router.get('/users/currentuser', authorize, (req, res, next) => {
     .first()
     .then((row) => {
       if (!row) {
-        return next(boom.create(400, `No user at id ${id}`));
+        return next(boom.create(400, `No user at id ${userId}`));
       }
       res.send(camelizeKeys(row));
     })
@@ -106,23 +104,24 @@ router.patch('/users', authorize, (req, res, next) => {
         return next(boom.create(404, 'Not Found'));
       }
 
-      const { high_score } = user;
+      const highScore = user.high_score;
       const updateUser = {};
 
-      if (newHighScore > high_score) {
-        updateUser.high_score = newHighScore;
+      if (newHighScore > highScore) {
+        updateUser.highScore = newHighScore;
 
-        return knex('users')
-          .update(decamelizeKeys(updateUser))
-          .where('id', userId);
-      } else {
         return knex('users')
           .update(decamelizeKeys(updateUser))
           .where('id', userId);
       }
+
+      return knex('users')
+        .update(decamelizeKeys(updateUser))
+        .where('id', userId);
     })
     .then((row) => {
       const user = camelizeKeys(row[0]);
+
       res.send(user);
     })
     .catch((err) => {
@@ -153,42 +152,6 @@ router.post('/users', ev(validations.post), (req, res, next) => {
       const user = camelizeKeys(rows[0]);
 
       delete user.hashedPassword;
-
-      res.send(user);
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
-router.delete('/users', (req, res, next) => {
-  const { userId } = req.token;
-  let user;
-
-  const { username } = req.body;
-
-  knex('users')
-    .where('username', username)
-    .first()
-    .then((row) => {
-      if (!row) {
-        return next(boom.create(404, `User not found at id ${username}`));
-      }
-
-      if (userId !== Number(row.user_id)) {
-        return next(boom.create(400, `userId ${userId} and row.user_id ${row.user_id} fail strictly equal.`));
-      }
-
-      user = camelizeKeys(row);
-
-      return knex('users')
-        .del()
-        .where('username', username);
-    })
-    .then(() => {
-      delete user.id;
-      delete user.hashedPassword;
-      delete user.updatedAt;
 
       res.send(user);
     })
