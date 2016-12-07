@@ -2,9 +2,6 @@ import React from 'react';
 import UserLeaderboard from './UserLeaderboard';
 
 const Leaderboard = React.createClass({
-
-
-
   render() {
     let sortedUsers = this.props.users;
     sortedUsers.sort(function(a, b) {

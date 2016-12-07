@@ -8,10 +8,6 @@ import { Match } from 'react-router';
 import { Link, Redirect } from 'react-router';
 
 const User = React.createClass({
-
-  componentDidMount(){
-
-  },
   render() {
     return (
       <div>
