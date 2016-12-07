@@ -49,8 +49,6 @@ const Main = React.createClass({
       });
   },
 
-
-
   getUserFriends() {
     axios.get('/users/friends')
       .then(res => {
@@ -60,6 +58,7 @@ const Main = React.createClass({
         this.setState({ loadErr: err });
       });
   },
+
   componentDidMount() {
     axios.get('/token')
       .then(res => {
