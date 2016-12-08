@@ -4,7 +4,6 @@ const Score = React.createClass({
   getInitialState() {
     return {
       data: []
-
     }
   },
   componentWillMount(){
@@ -20,8 +19,6 @@ const Score = React.createClass({
   },
 
   componentDidMount(){
-
-
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
     height = 270 - margin.top - margin.bottom;
@@ -49,8 +46,6 @@ const Score = React.createClass({
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-
-
     // Get the data
 
     x.domain(d3.extent(this.state.data, function(d) { return d.date; }));
@@ -64,15 +59,6 @@ const Score = React.createClass({
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
-
-
-        // svg.append("text")             // text label for the x axis
-        // .attr("x", width / 2 )
-        // .attr("y",  height + margin.bottom)
-        // .style("text-anchor", "middle")
-        // .text("Date");
-
-
 
     svg.append("g")			// Add the Y Axis
         .attr("class", "y axis")
@@ -88,13 +74,8 @@ const Score = React.createClass({
   },
 
     componentWillUnmount() {
-      // d3.selectAll("svg > *").remove();
-      // svg.selectAll("*").remove();
       d3.select("svg").remove();
-      // d3.select('svg').selectAll("*").data([]).exit().remove()
-
     },
-
 
   render() {
     return (
