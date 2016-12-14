@@ -4,14 +4,13 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  font-family: sans-serif;
 }
 
 body {
-  background-color: navy;
-  color: white;
-  font: 16px times;
+  color: black;
   height: 100vh;
-  /*overflow: hidden;*/
+  overflow: hidden;
 }
 
 button {
@@ -24,6 +23,7 @@ button {
 
 canvas {
   margin: 0 auto;
+  border-radius: 25px;
 }
 
 form {
@@ -31,7 +31,7 @@ form {
 }
 
 header {
-  background: black;
+  border-bottom: black;
   padding: 10px;
 }
 
@@ -50,60 +50,50 @@ ul {
   list-style: none;
 }
 
-
 button:hover {
-  background: black;
-  color: white;
+  background: grey;
 }
 
 #profiletabs {
-  display: block;
-  margin-bottom: 4px;
-  height: 50px;
+  padding-bottom: 30px;
 }
 
 #profiletabs ul {
   list-style: none;
-  display: block;
-  width: 40%;
+  display: inline;
   height: 50px;
   margin: 0 auto;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+#profiletabs ul li {
+  display: inline;
+  padding-bottom: 30px;
 }
 
 #profiletabs ul li a {
-  display: block;
-  float: left;
+  display: inline;
+  margin: 0 auto;
   padding: 8px 11px;
-  font-size: 1.2em;
   font-weight: bold;
-  background: #000;
 }
 
 #profiletabs ul li a:hover {
-  background: navy;
-  color: #fff;
-}
-
-#profiletabs ul li a.sel {
-  background: #fff;
-  border-color: #d1cdb5;
+  background: #000;
+  color: LemonChiffon;
+  border-radius: 30px;
 }
 
 #user-content {
+  border: 3px solid black;
   display: block;
-  width: 100%;
-  background: #fff;
-  padding: 25px 20px;
-  padding-bottom: 35px;
-  overflow-y: scroll;
-}
-
-#w {
-  display: block;
+  height: 50%;
   width: 750px;
   margin: 0 auto;
-  padding-top: 30px;
-  padding-bottom: 45px;
+  padding: 30px 20px;
+  padding-bottom: 35px;
+  overflow-y: scroll;
 }
 
 #leaderboard-table {
@@ -115,7 +105,6 @@ button:hover {
   padding: 0 30px;
 }
 
-
 #link-options, #signin-signup {
   margin: 20vh auto;
   width: 50%;
@@ -124,16 +113,12 @@ button:hover {
 #link-options li {
   margin: 30px 0;
   padding: 3vh 3vw;
-  border: 4px solid white;
+  border: 4px solid black;
   cursor: pointer;
 }
 
 #link-options li:hover {
-  background: #000;
-}
-
-#user-content {
-  color: black;
+  background: LemonChiffon;
 }
 
 path {
@@ -151,5 +136,5 @@ fill: none;
 
 a:link, a:visited, a:hover, a:active {
   text-decoration: none;
-  color: white;
+  color: black;
 }
