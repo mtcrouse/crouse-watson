@@ -37,9 +37,9 @@ airconsole0.onDisconnect = function(device_id) {
       	// Player that was in game left the game.
       	// Setting active players to length 0.
       	airconsole0.setActivePlayers(0);
-      }
-      checkTwoPlayers();
     }
+  checkTwoPlayers();
+}
 
 
 
@@ -50,10 +50,10 @@ airPlayer1Move = {
   start:false
 };
 airPlayer2Move = {
-left: false,
-right: false,
-jump: false,
-start:false
+  left: false,
+  right: false,
+  jump: false,
+  start:false
 };
 player_control_map = [];
 player_control_map.push({move: airPlayer1Move},{move: airPlayer2Move });

@@ -11,7 +11,6 @@ const Score = React.createClass({
     let data = this.props.currentUserScores.map((d, index) => {
                       let l = d.createdAt.slice(0,-5);
                       l = l.replace(/T/g, ' ');
-                      // d.createdAt = d.createdAt.slice(0,-14);
                       l  = parseDate(l);
                       return {close:d.score, date: l}
             });
@@ -22,8 +21,6 @@ const Score = React.createClass({
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
     height = 270 - margin.top - margin.bottom;
-
-    // var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 
     var x = d3.time.scale().range([0, width]);
     var y = d3.scale.linear().range([height, 0]);
@@ -73,9 +70,9 @@ const Score = React.createClass({
     .text("Score vs Date Graph");
   },
 
-    componentWillUnmount() {
-      d3.select("svg").remove();
-    },
+  componentWillUnmount() {
+    d3.select("svg").remove();
+  },
 
   render() {
     return (

@@ -23,56 +23,30 @@
         <div class="dpad-arrow dpad-arrow-right"></div>
       </div>
     </div>
-<!--
-      <div id="template-DPadRelative">
-        <div>
-          <div class="dpad-instructions">SWIPE</div>
-          <div class="dpad-arrow dpad-arrow-up"></div>
-          <div class="dpad-arrow dpad-arrow-down"></div>
-          <div class="dpad-arrow dpad-arrow-left"></div>
-          <div class="dpad-arrow dpad-arrow-right"></div>
-        </div>
-      </div> -->
-
-      <div id="template-Joystick" class="joystick">
-        <div class="joystick-relative">
-          <div class="joystick-relative-stick"></div>
-        </div>
+    <div id="template-Joystick" class="joystick">
+      <div class="joystick-relative">
+        <div class="joystick-relative-stick"></div>
       </div>
-<!--
-      <div id="template-SwipeDigital" class="button-300-300 swipe-area">
-        <div class="button-text">SWIPE</div>
-      </div>
-      <div id="template-SwipeAnalog" class="button-300-300 swipe-area">
-        <div class="button-text">SWIPE</div>
-      </div>
-
-      <div id="template-SwipePattern" class="swipe-pattern-container"></div> -->
-
-      <div id="template-ButtonVertical" class="button-300-150"><div class="button-text"></div></div>
-
-      <div id="template-ButtonMiddle" class="button-80"><div class="button-text">START</div></div>
     </div>
-    <script type="text/javascript" src="js/utill.js"></script>
+    <div id="template-ButtonVertical" class="button-300-150"><div class="button-text"></div></div>
+    <div id="template-ButtonMiddle" class="button-80"><div class="button-text">START</div></div>
+  </div>
 
-<script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.6.0.js"></script>
-<script type="text/javascript" src="airconsole-controls/rate-limiter/rate-limiter.js"></script>
-<script type="text/javascript" src="airconsole-controls/dpad/dpad.js"></script>
-<script type="text/javascript" src="airconsole-controls/joystick/joystick.js"></script>
-<script type="text/javascript" src="airconsole-controls/button/button.js"></script>
-<script type="text/javascript" src="airconsole-controls/swipe-digital/swipe-digital.js"></script>
-<script type="text/javascript" src="airconsole-controls/swipe-analog/swipe-analog.js"></script>
-<script type="text/javascript" src="airconsole-controls/swipe-pattern/swipe-pattern.js"></script>
-<script type="text/javascript" src="airconsole-controls/ctrl-generator/ctrl-generator.js"></script>
-<script src="js/controller.js"></script>
-<!-- <script type="text/javascript">
-var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
-CtrlGenerator.setAirConsole(airconsole);
-CtrlGenerator.generate({"left":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Left","key":"Left","on_up_message":true}],"middle":[{"label":"Jump","key":"Jump"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Right","key":"Right","on_up_message":true}]});
-</script> -->
-<script type="text/javascript">
-var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
-CtrlGenerator.setAirConsole(airconsole);
-CtrlGenerator.generate({"left":{"type":{"label":"Joystick","class_name":"Joystick"}},"middle":[{"label":"Start","key":"start"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Jump","key":"jump","on_up_message":true}]});
-</script>
-</body></html>
+  <script type="text/javascript" src="js/utill.js"></script>
+  <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.6.0.js"></script>
+  <script type="text/javascript" src="airconsole-controls/rate-limiter/rate-limiter.js"></script>
+  <script type="text/javascript" src="airconsole-controls/dpad/dpad.js"></script>
+  <script type="text/javascript" src="airconsole-controls/joystick/joystick.js"></script>
+  <script type="text/javascript" src="airconsole-controls/button/button.js"></script>
+  <script type="text/javascript" src="airconsole-controls/swipe-digital/swipe-digital.js"></script>
+  <script type="text/javascript" src="airconsole-controls/swipe-analog/swipe-analog.js"></script>
+  <script type="text/javascript" src="airconsole-controls/swipe-pattern/swipe-pattern.js"></script>
+  <script type="text/javascript" src="airconsole-controls/ctrl-generator/ctrl-generator.js"></script>
+  <script src="js/controller.js"></script>
+  <script type="text/javascript">
+  var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
+  CtrlGenerator.setAirConsole(airconsole);
+  CtrlGenerator.generate({"left":{"type":{"label":"Joystick","class_name":"Joystick"}},"middle":[{"label":"Start","key":"start"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Jump","key":"jump","on_up_message":true}]});
+  </script>
+</body>
+</html>
