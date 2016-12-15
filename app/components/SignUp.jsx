@@ -24,9 +24,9 @@ const SignUp = React.createClass({
     event.preventDefault();
 
     // TODO: Some validation here
-    if () {
-
-    }
+    // if () {
+    //
+    // }
 
     let data = { email: this.state.email,
       password: this.state.password,

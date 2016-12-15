@@ -14,21 +14,25 @@ const SignIn = React.createClass({
     this.setState({[event.target.name]: event.target.value});
   },
 
+  handleSignInError(error) {
+    console.log(error);
+    // TODO: Put some validation stuff here
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-
-    // TODO: Some validation here
 
     let data = { email: this.state.email,
       password: this.state.password
     };
+
     axios.post('/token', data)
       .then(res => {
         this.props.signIn();
         this.setState({loggedIn: true});
       })
       .catch(err => {
-        console.error(err);
+        handleSignInError(err);
       });
   },
 
