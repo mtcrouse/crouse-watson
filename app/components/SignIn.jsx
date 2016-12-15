@@ -16,6 +16,9 @@ const SignIn = React.createClass({
 
   handleSubmit(event) {
     event.preventDefault();
+
+    // TODO: Some validation here
+
     let data = { email: this.state.email,
       password: this.state.password
     };

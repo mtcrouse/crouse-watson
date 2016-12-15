@@ -15,8 +15,19 @@ const SignUp = React.createClass({
     this.setState({[event.target.name]: event.target.value});
   },
 
+  handleSignUpError(error) {
+    console.log(error);
+    // Add some client-side validation here
+  }
+
   handleSubmit(event) {
     event.preventDefault();
+
+    // TODO: Some validation here
+    if () {
+
+    }
+
     let data = { email: this.state.email,
       password: this.state.password,
       name: this.state.name,
@@ -36,7 +47,7 @@ const SignUp = React.createClass({
           });
       })
       .catch(err => {
-        console.log(err);
+        handleSignUpError(err);
       });
   },
 
