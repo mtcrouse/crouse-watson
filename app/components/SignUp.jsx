@@ -18,7 +18,7 @@ const SignUp = React.createClass({
   handleSignUpError(error) {
     console.log(error);
     // Add some client-side validation here
-  }
+  },
 
   handleSubmit(event) {
     event.preventDefault();

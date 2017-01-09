@@ -22,8 +22,8 @@ const Intro = React.createClass({
     return (
       <main>
         <ul id="link-options">
-          <Link to='/play'><li>PLAY ON KEYBOARD</li></Link>
-          <Link to='/airconsole'><li>PLAY ON AIR CONSOLE</li></Link>
+          <Link to='/play'><li>PLAY THE GAME</li></Link>
+          {/* <Link to='/airconsole'><li>PLAY ON AIR CONSOLE</li></Link> */}
           <this.IsLoggedIn />
           <this.SignOut />
         </ul>

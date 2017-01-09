@@ -17,7 +17,7 @@ const SignIn = React.createClass({
   handleSignInError(error) {
     console.log(error);
     // TODO: Put some validation stuff here
-  }
+  },
 
   handleSubmit(event) {
     event.preventDefault();
