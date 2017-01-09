@@ -17,12 +17,12 @@ const User = React.createClass({
           <nav id="profiletabs">
             <ul>
               <li><Link to='/user/score'>Score</Link></li>
-              <li><Link to='/user/friends'>Friends</Link></li>
+              {/* <li><Link to='/user/friends'>Friends</Link></li> */}
               <li><Link to='/user/leaderboard'>Leaderboard</Link></li>
             </ul>
           </nav>
           <Match pattern="/user/score"  render={ () => <Score { ...this.props } /> } />
-          <Match pattern="/user/friends"  render={ () => <Friends { ...this.props } /> } />
+          {/* <Match pattern="/user/friends"  render={ () => <Friends { ...this.props } /> } /> */}
           <Match pattern="/user/leaderboard"  render={ () => <Leaderboard { ...this.props } /> } />
         </div>
       </div>
