@@ -60,48 +60,44 @@ player_control_map.push({move: airPlayer1Move},{move: airPlayer2Move });
 
 // onMessage is called everytime a device sends a message with the .message() method
 airconsole1.onMessage = function(device_id, data) {
-let player = player_control_map[airconsole1.convertDeviceIdToPlayerNumber(device_id)];
-			 if (player.player === player_control_map[0].player) {
-						if(data.jump){
-						if (data.jump.pressed) {
-								player_control_map[0].move.jump = data.jump.pressed;
-						}else{
-							player_control_map[0].move.jump = data.jump.pressed;
-						}
-					}else if(data['joystick-left']){
-						 	if(data['joystick-left'].message.x < 0){
-
-							 player_control_map[0].move.left = true;
-
-						 } else {
-						 			player_control_map[0].move.left = false;
-						 }
-						 if(data['joystick-left'].message.x > 0) {
-							 player_control_map[0].move.right = true;
-
-					 } else {
-								player_control_map[0].move.right = false;
-					 }
-
-		       }else {	}
-      } else if (player.player === player_control_map[1].player) {
-				 if(data.jump){
-				 if (data.jump.pressed) {
-						 player_control_map[1].move.jump = data.jump.pressed;
-				 }else{
-					 player_control_map[1].move.jump = data.jump.pressed;
-				 }
-			}else if(data['joystick-left']){
-					 if(data['joystick-left'].message.x < 0){
-				      player_control_map[1].move.left = true;
-            } else {
-							 player_control_map[1].move.left = false;
-           }
-        if(data['joystick-left'].message.x > 0) {
-						player_control_map[1].move.right = true;
-				} else {
-						 player_control_map[1].move.right = false;
-				}
-        }else {}
-	  }
+  let player = player_control_map[airconsole1.convertDeviceIdToPlayerNumber(device_id)];
+	if (player.player === player_control_map[0].player) {
+		if (data.jump) {
+			if (data.jump.pressed) {
+				player_control_map[0].move.jump = data.jump.pressed;
+			} else {
+				player_control_map[0].move.jump = data.jump.pressed;
+			}
+		} else if (data['joystick-left']) {
+			if (data['joystick-left'].message.x < 0) {
+				player_control_map[0].move.left = true;
+			} else {
+				player_control_map[0].move.left = false;
+			}
+			if(data['joystick-left'].message.x > 0) {
+				player_control_map[0].move.right = true;
+			} else {
+				player_control_map[0].move.right = false;
+			}
+		} else {	}
+  } else if (player.player === player_control_map[1].player) {
+		if(data.jump){
+			if (data.jump.pressed) {
+				player_control_map[1].move.jump = data.jump.pressed;
+			} else {
+				player_control_map[1].move.jump = data.jump.pressed;
+			}
+		} else if (data['joystick-left']) {
+			if (data['joystick-left'].message.x < 0) {
+				player_control_map[1].move.left = true;
+      } else {
+				player_control_map[1].move.left = false;
+      }
+      if (data['joystick-left'].message.x > 0) {
+				player_control_map[1].move.right = true;
+			} else {
+				player_control_map[1].move.right = false;
+			}
+    }
+	}
 };

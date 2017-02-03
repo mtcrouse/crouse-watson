@@ -44,9 +44,9 @@
   <script type="text/javascript" src="airconsole-controls/ctrl-generator/ctrl-generator.js"></script>
   <script src="js/controller.js"></script>
   <script type="text/javascript">
-  var airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
-  CtrlGenerator.setAirConsole(airconsole);
-  CtrlGenerator.generate({"left":{"type":{"label":"Joystick","class_name":"Joystick"}},"middle":[{"label":"Start","key":"start"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Jump","key":"jump","on_up_message":true}]});
+    let airconsole = new AirConsole({orientation: AirConsole.ORIENTATION_LANDSCAPE});
+    CtrlGenerator.setAirConsole(airconsole);
+    CtrlGenerator.generate({"left":{"type":{"label":"Joystick","class_name":"Joystick"}},"middle":[{"label":"Start","key":"start"}],"right":[{"type":{"label":"ButtonVertical","class_name":"Button"},"label":"Jump","key":"jump","on_up_message":true}]});
   </script>
 </body>
 </html>

@@ -7,8 +7,7 @@ function isMobile() {
  || navigator.userAgent.match(/Windows Phone/i)
  ){
     return true;
-  }
- else {
+  } else {
     return false;
   }
 }

@@ -55,6 +55,11 @@ button:hover {
   background: grey;
 }
 
+#leaderboard-table {
+  margin: 0 auto;
+  border: 3px solid black;
+}
+
 #profiletabs {
   padding-bottom: 30px;
 }
@@ -95,11 +100,6 @@ button:hover {
   padding: 30px 20px;
   padding-bottom: 35px;
   overflow-y: scroll;
-}
-
-#leaderboard-table {
-  margin: 0 auto;
-  border: 3px solid black;
 }
 
 #leaderboard-table th {
