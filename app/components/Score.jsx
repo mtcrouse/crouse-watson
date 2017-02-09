@@ -61,13 +61,13 @@ const Score = React.createClass({
         .attr("class", "y axis")
         .call(yAxis);
 
-    svg.append("text")
-    .attr("x", width / 2 )
-    .attr("y",  0 - (margin.top / 2))
-    .style("font-size", "16px")
-    .style("text-anchor", "middle")
-    .style("text-decoration", "underline")
-    .text("Score vs Date Graph");
+    // svg.append("text")
+    // .attr("x", width / 2 )
+    // .attr("y",  0 - (margin.top / 2))
+    // .style("font-size", "16px")
+    // .style("text-anchor", "middle")
+    // .style("text-decoration", "underline")
+    // .text("Score vs Date Graph");
   },
 
   componentWillUnmount() {
@@ -77,7 +77,7 @@ const Score = React.createClass({
   render() {
     return (
       <div>
-          High Score: {this.props.currentUser.highScore}
+        High Score: {this.props.currentUser.highScore}
       </div>
     )
   }

@@ -4,10 +4,48 @@ import SignUp from './SignUp';
 import Header from './layout/Header';
 import { Link, Redirect } from 'react-router';
 
+let game;
+
 const SignIn = React.createClass({
   getInitialState() {
     const loggedIn = this.props.isLoggedIn;
     return this.state = { email: '', password: '', loggedIn };
+  },
+
+  componentDidMount() {
+    game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'intro-animation', { preload: preload, create: create });
+
+    function preload() {
+      game.load.image('background', 'images/background.png');
+      game.load.image('gold', 'images/gold.png');
+    }
+
+    function create() {
+      game.physics.startSystem(Phaser.Physics.ARCADE);
+      let world = game.add.group();
+      world.scale.setTo(window.innerWidth / 800, window.innerHeight / 600);
+
+      world.create(0, 0, 'background');
+
+      let gold = game.add.group();
+  		gold.enableBody = true;
+
+  		game.time.events.loop(1000,
+        function addCoins() {
+    			const coin = gold.create(game.rnd.integerInRange(0, window.innerWidth), -50, 'gold');
+    			coin.scale.setTo(0.04, 0.04);
+
+    			coin.body.gravity.y = game.rnd.integerInRange(40, 200);
+  		}, this);
+    }
+
+  },
+
+  componentWillUnmount() {
+    if (game !== undefined) {
+      game.destroy();
+      game = undefined;
+    }
   },
 
   handleChange(event) {
@@ -46,13 +84,18 @@ const SignIn = React.createClass({
       return <Redirect to="/" />
     } else {
       return <div id="signin-signup">
-        <p>Create an account</p>
+        <Link to='/'><h3>HOME</h3></Link>
+        <p className="sign-in-text">CREATE AN ACCOUNT</p>
         <SignUp handleSignUpSubmit={this.handleSignUpSubmit}/>
-        <p>Sign in if you already have an account</p>
+        <p className="sign-in-text">SIGN IN</p>
         <form onSubmit={this.handleSubmit}>
-          <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
-          <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
-          <button type="submit">SUBMIT</button>
+          <div className="row">
+            <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
+            <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
+          </div>
+          <div className="row">
+            <button type="submit" id="sign-in-button">SUBMIT</button>
+          </div>
         </form>
       </div>
     }
@@ -61,8 +104,11 @@ const SignIn = React.createClass({
   render() {
     return (
       <div>
-        <Header />
-        <this.SignInOrSignUp />
+        <div id="centered-div-container">
+          <div id="centered-div">
+            <this.SignInOrSignUp />
+          </div>
+        </div>
       </div>
     )
   }

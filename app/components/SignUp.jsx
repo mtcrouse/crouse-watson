@@ -55,11 +55,17 @@ const SignUp = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input placeholder="First Name" name="name" type="text" onChange={this.handleChange} />
-          <input placeholder="Username" name="username" type="text" onChange={this.handleChange} />
-          <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
-          <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
-          <button type="submit">SUBMIT</button>
+          <div className="row">
+            <input placeholder="First Name" name="name" type="text" onChange={this.handleChange} />
+            <input placeholder="Username" name="username" type="text" onChange={this.handleChange} />
+          </div>
+          <div className="row">
+            <input placeholder="Password" name="password" type="password" onChange={this.handleChange} />
+            <input placeholder="Email" name="email" type="email" onChange={this.handleChange} />
+          </div>
+          <div className="row">
+            <button type="submit" id="sign-up-button">SUBMIT</button>
+          </div>
         </form>
       </div>
     )

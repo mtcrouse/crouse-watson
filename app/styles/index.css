@@ -5,59 +5,53 @@
   padding: 0;
   text-align: center;
   font-family: sans-serif;
-}
-
-body {
   color: black;
-  height: 100vh;
-  overflow: hidden;
-}
-
-button {
-  background: white;
-  border: 2px solid black;
-  color: black;
-  cursor: pointer;
-  padding: 10px;
 }
 
 canvas {
   margin: 0 auto;
-  border-radius: 25px;
-}
-
-form {
-  margin: 20px auto;
-}
-
-header {
-  border-bottom: black;
-  padding: 10px;
-}
-
-html {
-  height: 100vh;
 }
 
 input {
-  display: block;
-  margin: 7px auto;
-  padding: 5px;
-  text-align: left;
-  border: 2px solid black;
+  margin: 10px;
 }
 
-ul {
-  list-style: none;
-}
-
-button:hover {
-  background: grey;
+path {
+  stroke: steelblue;
+  stroke-width: 2;
+  fill: none;
 }
 
 #leaderboard-table {
   margin: 0 auto;
-  border: 3px solid black;
+  color: white;
+}
+
+#leaderboard-table td, #leaderboard-table th {
+  color: white;
+  text-align: center;
+}
+
+#main-title {
+  color: white;
+  font-size: 100px;
+  font-weight: bold;
+  margin: auto;
+  cursor: default;
+}
+
+#centered-div {
+  position: relative;
+  margin: auto;
+}
+
+#centered-div-container {
+  position: absolute;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #profiletabs {
@@ -92,40 +86,25 @@ button:hover {
 }
 
 #user-content {
-  border: 3px solid black;
+  border: 3px solid white;
+  color: white;
   display: block;
   height: 50%;
   width: 750px;
   margin: 0 auto;
   padding: 30px 20px;
   padding-bottom: 35px;
-  overflow-y: scroll;
 }
 
 #leaderboard-table th {
   padding: 0 30px;
 }
 
-#link-options, #signin-signup {
-  margin: 20vh auto;
-  width: 50%;
-}
-
-#link-options li {
-  margin: 30px 0;
-  padding: 3vh 3vw;
-  border: 4px solid black;
+#sign-in-button, #sign-up-button {
+  background-color: white;
+  color: black;
+  border-radius: 20;
   cursor: pointer;
-}
-
-#link-options li:hover {
-  background: LemonChiffon;
-}
-
-path {
-stroke: steelblue;
-stroke-width: 2;
-fill: none;
 }
 
 .axis path, .axis line {
@@ -135,7 +114,16 @@ fill: none;
   shape-rendering: crispEdges;
 }
 
-a:link, a:visited, a:hover, a:active {
-  text-decoration: none;
+.main-button {
+  background-color: white;
   color: black;
+  border-radius: 20;
+  margin: 50px 20px;
+  cursor: pointer;
+}
+
+.sign-in-text {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 }
