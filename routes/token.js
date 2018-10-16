@@ -1,7 +1,7 @@
 'use strict';
 
 const boom = require('boom');
-const bcrypt = require('bcrypt-as-promised');
+const bcrypt = require('bcrypt');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
@@ -55,9 +55,6 @@ router.post('/token', (req, res, next) => {
       });
 
       res.send(user);
-    })
-    .catch(bcrypt.MISMATCH_ERROR, () => {
-      throw boom.create(400, 'Bad username or password');
     })
     .catch((err) => {
       next(err);
