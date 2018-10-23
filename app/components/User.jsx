@@ -44,7 +44,7 @@ const User = React.createClass({
               <h1 className="u-pull-left">{this.props.currentUser.name}</h1>
               <nav id="profiletabs">
                 <ul>
-                  <li><Link to='/user/score'>Score</Link></li>
+                  {/* <li><Link to='/user/score'>Score</Link></li> */}
                   <li><Link to='/user/leaderboard'>Leaderboard</Link></li>
                 </ul>
               </nav>
