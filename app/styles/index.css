@@ -24,11 +24,11 @@ path {
 
 #leaderboard-table {
   margin: 0 auto;
-  color: white;
+  color: black;
 }
 
 #leaderboard-table td, #leaderboard-table th {
-  color: white;
+  color: black;
   text-align: center;
 }
 
@@ -88,6 +88,7 @@ path {
 #user-content {
   border: 3px solid white;
   color: white;
+  background: white;
   display: block;
   height: 50%;
   width: 750px;
